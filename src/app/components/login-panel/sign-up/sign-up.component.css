@@ -1,0 +1,170 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-in-panel {
+    width: 30em;
+    max-height: 35em;
+    height: 35em;
+    background: rgba(42, 87, 120, 1);
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.log-in-panel h1 {
+    color: rgba(200, 200, 200, 1);
+}
+
+:host {
+    --mdc-filled-text-field-container-color: rgba(46, 121, 176, 1);
+    --mat-standard-button-toggle-background-color: rgba(46, 121, 176, 1);
+    --mat-standard-button-toggle-selected-state-background-color: rgb(37, 100, 143);
+}
+
+.em--input {
+    width: 12.5em;
+    height: 2.5em;
+    border-radius: 30px;
+    border: 0;
+    background: var(--mdc-filled-text-field-container-color);
+    margin-bottom: 1em;
+    font-size: 1.8em;
+    color: white;
+}
+
+.em--input:not(mat-button-toggle-group) {
+    padding-left: 1em;
+
+}
+
+mat-button-toggle-group {
+    width: 100%;
+    padding: 0;
+}
+
+.em--input mat-button-toggle {
+    width: 100%;
+    padding: 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    border: 0;
+    justify-content: space-between;
+}
+
+.text-danger {
+    color: red;
+    font-size: 1.5em;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+.custom-input {
+    border-radius: 50px;
+    color: white;
+}
+
+::placeholder {
+    color: rgba(200, 200, 200, 0.3);
+}
+
+mat-label {
+    width: 20%;
+    color: rgba(200, 200, 200, 0.3);
+    cursor: default;
+    position: absolute;
+}
+
+.example-button-row {
+    margin-bottom: 1em;
+}
+
+.log-inBtn {
+    background: rgba(74, 176, 170, 1);
+    color: #ffffff;
+    border: 0;
+    width: 8em;
+    height: 2em;
+    border-radius: 10px;
+    font-size: 24px;
+}
+
+.log-inBtn:hover {
+    background: rgba(52, 132, 127, 1);
+    cursor: pointer;
+}
+
+.log-in-panel a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+.subject-selection-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+.subject-option {
+    max-width: 15em;
+    width: 15em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background-color: #2e79b0;
+    color: white;
+}
+
+mat-list-option {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    align-content: center;
+    justify-content: center;
+    margin: .5em;
+}
+
+.group_input {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.group_input select {
+    width: 25%;
+    height: 2.55em;
+    padding-right: 1em;
+    outline: none;
+    border-radius: 30px 0 0 30px;
+}
+
+.group_input input {
+    width: 50%;
+    padding-left: 1em;
+    outline: none;
+    border-radius: 0 30px 30px 0;
+}

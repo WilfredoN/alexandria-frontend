@@ -1,0 +1,110 @@
+.container {
+    color: white;
+    margin: 0 3em 0 3em;
+    font-family: 'Comfortaa', cursive;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+}
+
+.search h1 {
+    font-weight: 300;
+}
+
+input {
+    border: 0;
+    border-radius: 30px;
+    height: 2.5em;
+    width: 14em;
+    background: rgba(77, 123, 157, 1);
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 20px;
+}
+
+input::placeholder {
+    color: white;
+    opacity: 0.5;
+    font-size: 20px;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+.icon {
+    width: 5em;
+    height: 5em;
+    background: rgba(217, 217, 217, 1);
+    border-radius: 50%;
+}
+
+.students {
+    height: 100%;
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: repeat(auto-fill, minmax(35em, 1fr));
+    grid-auto-rows: 7em;
+}
+
+.student {
+    width: 100%;
+    height: 8em;
+    text-align: center;
+    background: rgba(49, 126, 159, 1);
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.1s ease-in-out;
+}
+.student:hover {
+    transform: scale(1.05);
+    transition: 0.1s ease-in-out;
+}
+.user {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tips {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#user_info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    word-wrap: break-word;
+}
+#user_info p {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.3em;
+}
+span {
+    color: rgba(255, 255, 255, 0.3);
+}

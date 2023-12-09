@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="container_inner">
+        <div class="profile_info" [ngClass]="{'student-info': isStudent}">
+            <div class="img-container">
+                <div class="img_profile"></div>
+                <div class="overlay" id="overlay">
+                    <span class="text">Изменить</span>
+                </div>
+            </div>
+            <div class="info_about">
+                <p>Имя аккаунта: {{ userDTO?.full_name }}</p>
+                <p>Логин: {{ userDTO?.login }}</p>
+                <div class="switch-text-panel">
+                    <p>Admin:</p>
+                    <label class="switch">
+                        <input type="checkbox" [(ngModel)]="isChecked" (click)="adminAccount()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <p *ngIf="isStudent && userDTO?.group_name">Группа: {{ userDTO.group_name }}</p>
+                <button class="btn_change btn-def-style" (click)="openChangePasswordDialog()">Изменить пароль</button>
+                <button class="btn_delete btn-def-style" (click)="deleteAccount()">Удалить аккаунт</button>
+            </div>
+        </div>
+        <div class="groups_selector" *ngIf="!isStudent">
+            <h3>Выберите группы, у которых вы преподаете</h3>
+            <ul>
+                <li *ngFor="let group of groups">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="group.selected"/>
+                        {{ group.name }}
+                    </label>
+                </li>
+            </ul>
+            <button class="btn-def-style" (click)="saveGroups()">Сохранить</button>
+        </div>
+        <div class="students_creator" *ngIf="!isStudent">
+            <h3>Добавить студентов</h3>
+            <form class="students_form" (ngSubmit)="createStudent()">
+                <table class="students_field">
+                    <tr>
+                        <td>
+                            <label for="full_name">ФИО</label>
+                            <input class="input-profile" type="text" id="full_name" name="full_name"
+                                   [(ngModel)]="student.full_name"
+                                   required>
+                        </td>
+                        <td>
+                            <label for="group">Группа</label>
+                            <input class="input-profile" type="text" id="group" name="group"
+                                   [(ngModel)]="student.group_name" required>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn_create btn-def-style" type="submit">Создать</button>
+            </form>
+        </div>
+        <div class="lesson_creator" *ngIf="!isStudent">
+            <h3>Создать предмет</h3>
+            <form class="lessons_form" (ngSubmit)="createLesson()">
+                <table class="lessons_field">
+                    <tr>
+                        <td>
+                            <label for="lesson_name">Название предмета</label>
+                            <input class="input-profile long-new" type="text" id="lesson_name" name="lesson_name"
+                                   [(ngModel)]="lesson.lesson_name"
+                                   required>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn_create btn-def-style" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<mat-toolbar class="toolbars">
+    <div class="mat-toolbar">
+        <div class="toolbar no-select">
+            <span class="logo" routerLink='base'>Alexandria</span>
+        </div>
+        <div class="toolbar no-select">
+            <mat-icon class="profile" [matMenuTriggerFor]="profileMenu"
+            >account_circle
+            </mat-icon
+            >
+        </div>
+    </div>
+    <div>
+        <mat-menu #profileMenu="matMenu">
+            <button mat-menu-item routerLink="profile">Мой профиль</button>
+            <button mat-menu-item (click)="logout()">Выйти</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="log-in-panel">
+        <h1>Authorization</h1>
+        <form [formGroup]="myForm" (ngSubmit)="logIn()">
+            <fieldset>
+                <legend>Выберите роль</legend>
+                <div class="radioInput">
+                    <input type="radio" id="teacher" value="teacher" formControlName="role" checked required />
+                    <label for="teacher">Учитель</label>
+                </div>
+                <div class="radioInput">
+                    <input type="radio" id="student" value="student" formControlName="role"  required/>
+                    <label for="student">Студент</label>
+                </div>
+            </fieldset>
+
+            <input class="em--input" type="email" placeholder="Login" formControlName="login"/>
+
+            <input class="em--input" type="password" placeholder="Password" formControlName="password"/>
+
+            <div class="example-button-row">
+                <button class="log-inBtn" type="submit">Log in</button>
+            </div>
+        </form>
+
+        <a routerLink="/sign-up">Register</a>
+    </div>
+</div>

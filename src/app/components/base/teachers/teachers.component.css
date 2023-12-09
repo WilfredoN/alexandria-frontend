@@ -1,0 +1,102 @@
+.container{
+    margin: 0 3em 0 3em;
+}
+
+.container_inner{
+    color: white;
+    font-family: 'Comfortaa', cursive;
+}
+
+.search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+}
+
+.search h1{
+    font-weight: 300;
+}
+
+input{
+    border: 0;
+    border-radius: 30px;
+    height: 2.5em;
+    width: 14em;
+    background: rgba(77, 123, 157, 1);
+    font-family: 'Comfortaa', cursive;
+    color:white;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 20px;
+}
+
+input::placeholder{
+    color:white;
+    opacity: 0.5;
+    font-size: 20px;
+}
+
+textarea:focus,
+input:focus {
+	outline: none;
+}
+
+.iconOfTeacher{
+    width: 10em;
+    height: 10em;
+    background: rgba(217, 217, 217, 1);
+}
+
+.teachers{
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18em, 1fr)); /* Можно настроить ширину столбцов */
+}
+
+.teacher{
+    width: 16em;
+    height: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(49, 126, 159, 1);
+    padding-top: 2em;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 4em;
+    margin-left: 2.5em;
+    transition: 0.1s ease-in-out;
+}
+.teacher:hover {
+    transform: scale(1.05);
+    transition: 0.1s ease-in-out;
+}
+.teacher p{
+    margin-bottom: 1em;
+    font-size: 18px;
+}
+
+.iconOfTeacher{
+    border-radius: 50%;
+    margin-bottom:3px;
+}
+
+.icons{
+    display: flex;
+    justify-items: center;
+    width: 9em;
+    margin-bottom: 1em;
+}
+
+.icon{
+    margin-right: 1em;
+    font-size: 3em;
+    width: 3em;
+    height: 1em;
+}
+
+.icon.ri{
+    margin-right: 0;
+}

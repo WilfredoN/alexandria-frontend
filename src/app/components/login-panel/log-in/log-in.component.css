@@ -1,0 +1,100 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+
+.log-in-panel {
+    width: 35em;
+    max-height: 35em;
+    height: 35em;
+    background: rgba(42, 87, 120, 1);
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.3em;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.log-in-panel h1 {
+    color: rgba(200, 200, 200, 1);
+    margin-bottom: 1.2em;
+}
+
+:host {
+    --mdc-filled-text-field-container-color: rgba(46, 121, 176, 1);
+}
+
+.em--input {
+    width: 12.5em;
+    height: 2.7em;
+    border-radius: 30px;
+    border: 0;
+    background: rgba(46, 121, 176, 1);
+    margin-bottom: 1.5em;
+    padding-left: 1em;
+    font-size: 2em;
+    color: white;
+    transition: font-size 0.25s ease-in-out;
+}
+
+.em--input:not(:focus) {
+    font-size: 1.8em;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+fieldset {
+    border: 0;
+    display: flex;
+    text-align: center;
+    font-size: 1.3em;
+}
+.radioInput {
+    margin: .3em;
+}
+.custom-input {
+    border-radius: 50px;
+    color: white;
+}
+
+::placeholder {
+    color: rgba(200, 200, 200, 0.3);
+}
+
+.example-button-row {
+    margin-bottom: 1em;
+}
+
+.log-inBtn {
+    background: rgba(74, 176, 170, 1);
+    color: #ffffff;
+    border: 0;
+    width: 8em;
+    height: 2em;
+    border-radius: 10px;
+    font-size: 24px;
+}
+
+.log-inBtn:hover {
+    background: rgba(52, 132, 127, 1);
+    cursor: pointer;
+}
+
+.log-in-panel a {
+    color: white;
+    text-decoration: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

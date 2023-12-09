@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="container_inner">
+        <div class="search">
+            <h1>Список преподавателей {{ user.group_name }}</h1>
+            <input type="search" placeholder="поиск">
+        </div>
+        <div class="teachers">
+            <div class="teacher" *ngFor="let teacher of teachers">
+                <div class="iconOfTeacher">
+                </div>
+                <p>{{ teacher.full_name }}</p>
+                <div class="icons">
+                    <mat-icon class="icon">mail</mat-icon>
+                    <mat-icon class="icon ri">telegram</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

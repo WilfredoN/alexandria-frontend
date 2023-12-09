@@ -1,0 +1,14 @@
+.container{
+    width:90%;
+    margin: 2em 0 0 5em;
+}
+
+.mat-elevation-z8{
+    background-color: rgba(37, 84, 104, 1);
+    border-radius: 25px;
+}
+
+.textColumn{
+    color: white;
+    font-family: 'Comfortaa', cursive;
+}

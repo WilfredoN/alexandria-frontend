@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="log-in-panel">
+        <h1>Registration</h1>
+        <form [formGroup]="myForm" (ngSubmit)="_formSubmit()">
+            <input
+                class="em--input"
+                type="text"
+                formControlName="full_name"
+                placeholder="Full Name"
+                required
+            />
+
+            <input
+                class="em--input"
+                type="text"
+                formControlName="login"
+                placeholder="Login"
+                required
+            />
+
+            <input
+                class="em--input"
+                type="password"
+                formControlName="pwd"
+                placeholder="Choose password"
+                required
+            />
+            <div class="example-button-row">
+                <input type="submit" value="Register" class="log-inBtn"/>
+            </div>
+        </form>
+        <a routerLink="/log-in">Log in</a>
+    </div>
+</div>
