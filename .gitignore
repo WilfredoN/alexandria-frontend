@@ -10,7 +10,7 @@ lerna-debug.log*
 .vscode
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
+prettier/*
 # Runtime data
 pids
 *.pid

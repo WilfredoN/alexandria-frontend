@@ -1,153 +1,206 @@
 <div class="container">
-    <div class="current-info">
-        <div *ngIf="isStudent" class="num-of-week">
-            <p class="num-of-week-label">Текущий номер недели:</p>
-            <p class="num-of-week-text">{{ this.lesson.week_type }} неделя</p>
-        </div>
-        <div *ngIf="!isStudent" class="num-of-week-selector">
-            <p class="num-of-week-text" (click)="chooseWeekType()">{{lesson.week_type}}</p>
-        </div>
-        <div *ngIf="!isStudent" class="lesson_creator">
-            <mat-accordion class="accordion">
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <p class="lesson_creator-label">Создать урок</p>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-form-field>
-                        <mat-label>Название урока</mat-label>
-                        <mat-select [(ngModel)]="lesson.subject_id">
-                            <mat-option *ngFor="let name of this.lessonNames" [value]="name.id">
-                                {{ name.subject_name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Имя учителя</mat-label>
-                        <mat-select [(ngModel)]="lesson.teacher_id">
-                            <mat-option *ngFor="let teacher of this.teacherNames" [value]="teacher">
-                                {{ teacher.full_name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+	<div class="current-info">
+		<div *ngIf="isStudent" class="num-of-week">
+			<p class="num-of-week-label">Текущий номер недели:</p>
+			<p class="num-of-week-text">{{ this.lesson.week_type }} неделя</p>
+		</div>
+		<div
+			*ngIf="!isStudent"
+			(click)="chooseWeekType()"
+			class="num-of-week-selector"
+		>
+			<p class="num-of-week-text">{{ lesson.week_type }}</p>
+		</div>
+		<div *ngIf="!isStudent" class="choose-group-selector">
+			<select
+				[(ngModel)]="selectedGroup"
+				(change)="chooseGroup(selectedGroup)"
+				class="choose-group-input"
+			>
+				<option
+					*ngFor="let group of groups"
+					[ngValue]="group"
+					selected="group[0]"
+				>
+					{{ group.name }}
+				</option>
+			</select>
+		</div>
+	</div>
+	<div class="main-schedule-table">
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th
+						class="current-day-week"
+						*ngFor="
+							let day of [
+								'Понедельник',
+								'Вторник',
+								'Среда',
+								'Четверг',
+								'Пятница'
+							]
+						"
+						[ngClass]="{ 'current-day': isCurrentDay(day) }"
+					>
+						{{ day }}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let lesson_num of [1, 2, 3, 4]">
+					<td class="num-lessons">{{ lesson_num }}</td>
+					<td
+						*ngFor="
+							let day of [
+								'Понедельник',
+								'Вторник',
+								'Среда',
+								'Четверг',
+								'Пятница'
+							]
+						"
+						class="lesson"
+						(click)="insertSchedule(lesson_num, day)"
+					>
+						<ul (click)="togglePopUp(this.lesson_num, this.day)">
+							<li
+								class="text-in-box"
+								*ngFor="
+									let schedule of getSchedulesForDayAndLesson(
+										day,
+										lesson_num
+									)
+								"
+							>
+								<div
+									class="pop-up"
+									[class.active-present]="
+										this.popUpVisibility.day === this.day &&
+										this.popUpVisibility.num ===
+											this.lesson_num
+									"
+								>
+									<mat-icon
+										id="edit"
+										class="pop-up_icon"
+										matTooltip="Редактировать"
+										[matTooltipPosition]="'above'"
+										[matTooltipShowDelay]="500"
+										(click)="$event.stopPropagation()"
+									>
+										edit
+									</mat-icon>
+									<mat-icon
+										id="drag"
+										class="pop-up_icon"
+										[matTooltipPosition]="'above'"
+										[matTooltipShowDelay]="500"
+										matTooltip="Переместить"
+										(click)="
+											$event.stopPropagation();
+											setMovingSchedule(schedule)
+										"
+									>
+										apps
+									</mat-icon>
+									<mat-icon
+										id="delete"
+										class="pop-up_icon"
+										[class.delete-icon-active]="
+											selectedSchedule === schedule.id
+										"
+										[matTooltipPosition]="'above'"
+										[matTooltipShowDelay]="500"
+										matTooltip="Удалить"
+										(click)="
+											$event.stopPropagation();
+											deleteStageSet(schedule.id)
+										"
+									>
+										delete
+									</mat-icon>
+								</div>
+								<div class="icon-div">
+									<mat-icon class="library_books_style"
+										>library_books</mat-icon
+									>
+								</div>
+								<div>
+									<p class="lesson-name">
+										{{ schedule.lessonName }}
+									</p>
+									<p class="lesson-teacher">
+										{{ schedule.teacherName }}
+									</p>
+								</div>
+							</li>
 
-                    <mat-form-field>
-                        <mat-label>Номер урока</mat-label>
-                        <mat-select [(ngModel)]="lesson.lesson_number">
-                            <mat-option *ngFor="let number of lessonNumbers" [value]="number">
-                                {{ number }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>День недели</mat-label>
-                        <mat-select [(ngModel)]="lesson.day_of_week">
-                            <mat-option *ngFor="let day of daysOfWeek" [value]="day">
-                                {{ day }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Группа</mat-label>
-                        <mat-select [(ngModel)]="lesson.group_id">
-                            <mat-option *ngFor="let group of this.groups" [value]="group">
-                                {{ group.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <br>
-                    <button mat-raised-button color="primary" (click)="createSchedule()">Создать</button>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-
-
-    </div>
-    <div class="main-schedule-table">
-        <table>
-            <thead>
-            <tr>
-                <th></th>
-                <th class="current-day-week"
-                    *ngFor="let day of ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница']"
-                    [ngClass]="{ 'current-day': isCurrentDay(day) }">
-                    {{ day }}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let lesson_num of [1, 2, 3, 4]">
-                <td class="num-lessons">{{ lesson_num }}</td>
-                <td *ngFor="let day of ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница']" class="lesson"
-                    (click)="insertSchedule(lesson_num, day)">
-                    <ul (click)="togglePopUp(this.lesson_num, this.day)">
-                        <li class="text-in-box"
-                            *ngFor="let schedule of getSchedulesForDayAndLesson(day, lesson_num)">
-                            <div class="pop-up"
-                                 [class.active-present]="this.popUpVisibility.day === this.day && this.popUpVisibility.num === this.lesson_num">
-                                <mat-icon id="edit" class="pop-up_icon"
-                                          matTooltip="Редактировать" [matTooltipPosition]="'above'"
-                                          [matTooltipShowDelay]="500"
-                                          (click)="$event.stopPropagation();">
-                                    edit
-                                </mat-icon>
-                                <mat-icon id="drag" class="pop-up_icon" [matTooltipPosition]="'above'"
-                                          [matTooltipShowDelay]="500"
-                                          matTooltip="Переместить"
-                                          (click)="$event.stopPropagation(); setMovingSchedule(schedule)">
-                                    apps
-                                </mat-icon>
-                                <mat-icon id="delete" class="pop-up_icon"
-                                          [class.delete-icon-active]="selectedSchedule === schedule.id"
-                                          [matTooltipPosition]="'above'" [matTooltipShowDelay]="500"
-                                          matTooltip="Удалить"
-                                          (click)="$event.stopPropagation(); deleteStageSet(schedule.id)">
-                                    delete
-                                </mat-icon>
-                            </div>
-                            <div class="icon-div">
-                                <mat-icon class="library_books_style">library_books</mat-icon>
-                            </div>
-                            <div>
-                                <p class="lesson-name">{{ schedule.lessonName }}</p>
-                                <p class="lesson-teacher">{{ schedule.teacherName }}</p>
-                            </div>
-                        </li>
-
-                        <li class="text-in-box"
-                            *ngIf="!getSchedulesForDayAndLesson(day, lesson_num).length">
-                            <div class="pop-up"
-                                 [class.active-empty]="this.popUpVisibility.day === this.day && this.popUpVisibility.num === this.lesson_num">
-                                <input class="create_lesson_input" type="text"
-                                       [(ngModel)]="lessonNameInput" placeholder="Название предмета"
-                                       [class.input-active]="this.isConfirmReady"
-                                       (click)="$event.stopPropagation()">
-                                <div id="icons-empty">
-                                    <mat-icon id="add" class="pop-up_icon"
-                                              matTooltip="Добавить" [matTooltipPosition]="'below'"
-                                              [matTooltipShowDelay]="1000"
-                                              (click)="$event.stopPropagation(); toggleAddition()">
-                                        add
-                                    </mat-icon>
-                                    <mat-icon *ngIf="this.isConfirmReady" id="confirm" class="pop-up_icon"
-                                              matTooltip="Подтвердить" [matTooltipPosition]="'below'"
-                                              [matTooltipShowDelay]="1000"
-                                    (click)="createLesson()">
-                                        done
-                                    </mat-icon>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="lesson-name"></p>
-                                <p class="lesson-teacher"></p>
-                            </div>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+							<li
+								class="text-in-box"
+								*ngIf="
+									!getSchedulesForDayAndLesson(
+										day,
+										lesson_num
+									).length
+								"
+							>
+								<div
+									class="pop-up"
+									[class.active-empty]="
+										this.popUpVisibility.day === this.day &&
+										this.popUpVisibility.num ===
+											this.lesson_num
+									"
+								>
+									<input
+										class="create_lesson_input"
+										type="text"
+										[(ngModel)]="lessonNameInput"
+										placeholder="Название предмета"
+										[class.input-active]="
+											this.isConfirmReady
+										"
+										(click)="$event.stopPropagation()"
+									/>
+									<div id="icons-empty">
+										<mat-icon
+											id="add"
+											class="pop-up_icon"
+											matTooltip="Добавить"
+											[matTooltipPosition]="'below'"
+											[matTooltipShowDelay]="1000"
+											(click)="
+												$event.stopPropagation();
+												toggleAddition()
+											"
+										>
+											add
+										</mat-icon>
+										<mat-icon
+											*ngIf="this.isConfirmReady"
+											id="confirm"
+											class="pop-up_icon"
+											matTooltip="Подтвердить"
+											[matTooltipPosition]="'below'"
+											[matTooltipShowDelay]="1000"
+											(click)="createLesson()"
+										>
+											done
+										</mat-icon>
+									</div>
+								</div>
+								<div>
+									<p class="lesson-name"></p>
+									<p class="lesson-teacher"></p>
+								</div>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

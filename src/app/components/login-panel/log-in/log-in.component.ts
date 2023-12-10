@@ -11,7 +11,14 @@ import {AuthService} from "../../service/auth-service";
 })
 export class LogInComponent implements OnInit {
     myForm: FormGroup;
-
+    DTO: {
+        id: number,
+        login: string,
+        password: string,
+        group_name?: string,
+        role: string,
+        is_admin: boolean
+    }
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -45,16 +52,14 @@ export class LogInComponent implements OnInit {
             group_name: '',
             role: this.myForm.value.role
         }
-
         this.authService.logIn(userDTO).subscribe({
             next: (response: any) => {
                 console.log(response);
                 this._snackBar.open('Вы успешно вошли в систему', 'Закрыть', {duration: 3000});
-                userDTO.id = response.id;
-                userDTO.group_name = response.group_name;
-                userDTO.role = this.myForm.value.role;
-                localStorage.setItem('user', JSON.stringify(userDTO));
-                console.log(userDTO);
+                this.DTO = response;
+                this.DTO.role = this.myForm.value.role;
+                localStorage.setItem('user', JSON.stringify(this.DTO));
+                console.log(this.DTO);
                 this.router.navigate(['/base']).then(r => console.log(r + '\nnavigate to /base'));
             },
             error: () => {

@@ -84,7 +84,7 @@ export class AuthService {
     logIn(user: loginDTO): Observable<loginDTO> {
         console.log(this.apiURL)
         const endpoint = user.role === 'teacher' ? '/teachers/login' : '/students/login';
-        return this.http.post<loginDTO>(`${this.apiURL}${endpoint}`, user, this.httpOptions);
+        return this.http.post<any>(`${this.apiURL}${endpoint}`, user, this.httpOptions);
     }
 
     delete(login: string, role: string): Observable<any> {
