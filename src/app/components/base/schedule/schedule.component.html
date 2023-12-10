@@ -1,7 +1,6 @@
 <div class="container">
 	<div class="current-info">
 		<div *ngIf="isStudent" class="num-of-week">
-			<p class="num-of-week-label">Текущий номер недели:</p>
 			<p class="num-of-week-text">{{ this.lesson.week_type }} неделя</p>
 		</div>
 		<div
@@ -76,6 +75,7 @@
 								"
 							>
 								<div
+									*ngIf="!isStudent"
 									class="pop-up"
 									[class.active-present]="
 										this.popUpVisibility.day === this.day &&
@@ -148,6 +148,7 @@
 								"
 							>
 								<div
+									*ngIf="!isStudent"
 									class="pop-up"
 									[class.active-empty]="
 										this.popUpVisibility.day === this.day &&
