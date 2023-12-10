@@ -144,12 +144,17 @@ mat-label {
 .log-inBtn:hover {
     background: rgba(52, 132, 127, 1);
     cursor: pointer;
+    transition: 0.5s;
 }
 
 .log-in-panel a {
     color: white;
     text-decoration: none;
     margin-bottom: 2em;
+}
+.log-in-panel a:hover {
+    color: #9e9eea;
+    transition: 0.5s;
 }
 
 form {
@@ -230,7 +235,8 @@ mat-list-option {
         color: rgba(200, 200, 200, 1);
         font-size: 24px;
         width: 100%;
-        margin-bottom: 0.6em;
+        display: flex;
+        justify-content: center;
     }
     .fututes{
         display: none;

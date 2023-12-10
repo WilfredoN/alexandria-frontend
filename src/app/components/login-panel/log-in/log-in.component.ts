@@ -11,6 +11,7 @@ import {AuthService} from "../../service/auth-service";
 })
 export class LogInComponent implements OnInit {
     myForm: FormGroup;
+    selectedOption: string;
 
     constructor(
         private fb: FormBuilder,
@@ -19,7 +20,9 @@ export class LogInComponent implements OnInit {
         private _snackBar: MatSnackBar
     ) {
     }
-
+    selectOption(value: string){
+        this.selectedOption = value;
+    }
     ngOnInit() {
         this._formValidate();
         console.log(this.myForm.controls);
