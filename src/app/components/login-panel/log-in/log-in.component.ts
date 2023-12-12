@@ -15,9 +15,14 @@ export class LogInComponent implements OnInit {
 		id: number;
 		login: string;
 		password: string;
-		group_name?: string;
 		role: string;
 		is_admin: boolean;
+	} = {
+		id: 0,
+		login: '',
+		password: '',
+		role: 'student',
+		is_admin: false,
 	};
 	selectedOption: string;
 
@@ -29,10 +34,13 @@ export class LogInComponent implements OnInit {
 	) {}
 	selectOption(value: string) {
 		this.selectedOption = value;
+		const roleControl = this.myForm.get('role');
+		if (roleControl) {
+			roleControl.setValue(value);
+		}
 	}
 	ngOnInit() {
 		this._formValidate();
-		console.log(this.myForm.controls);
 	}
 
 	_formValidate() {
@@ -51,10 +59,8 @@ export class LogInComponent implements OnInit {
 			return;
 		}
 		const userDTO = {
-			id: 0,
 			login: this.myForm.value.login,
 			password: this.myForm.value.password,
-			group_name: '',
 			role: this.myForm.value.role,
 		};
 		this.authService.logIn(userDTO).subscribe({
@@ -71,7 +77,9 @@ export class LogInComponent implements OnInit {
 					.navigate(['/base'])
 					.then(r => console.log(r + '\nnavigate to /base'));
 			},
-			error: () => {
+			error: err => {
+				console.log(err);
+				console.log(userDTO);
 				this._snackBar.open('Неверный логин или пароль', 'Закрыть', {
 					duration: 3000,
 				});

@@ -3,8 +3,6 @@ import { ScheduleService } from '../../service/schedule-service';
 import { Schedule } from '../../service/schedule-dto';
 import { forkJoin, Observable } from 'rxjs';
 import { AuthService } from '../../service/auth-service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogChangeLesson } from './dialog-change';
 
 @Component({
 	selector: 'app-schedule',
@@ -51,7 +49,6 @@ export class ScheduleComponent implements OnInit {
 	constructor(
 		private scheduleService: ScheduleService,
 		private authService: AuthService,
-		private dialog: MatDialog,
 	) {
 		this.currentDay = this.getCurrentDay();
 		this.lesson.week_type = this.calculateWeekType();

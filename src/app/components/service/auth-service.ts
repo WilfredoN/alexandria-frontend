@@ -98,13 +98,21 @@ export class AuthService {
 		);
 	}
 
-	logIn(user: loginDTO): Observable<loginDTO> {
-		console.log(this.apiURL);
+	logIn(user: {
+		login: string;
+		password: string;
+		role: string;
+	}): Observable<any> {
 		const endpoint =
 			user.role === 'teacher' ? '/teachers/login' : '/students/login';
+		console.log(`${this.apiURL}${endpoint}`);
+		console.log(user);
 		return this.http.post<any>(
 			`${this.apiURL}${endpoint}`,
-			user,
+			{
+				login: user.login,
+				password: user.password,
+			},
 			this.httpOptions,
 		);
 	}
@@ -119,11 +127,7 @@ export class AuthService {
 
 	getUser(user: any): Observable<any> {
 		const endpoint = user.role === 'student' ? '/students' : '/teachers';
-		const role = user.role === 'student' ? 'student' : 'teacher';
-		localStorage.setItem('role', role);
-		return this.http.get<StudentDTO | TeacherDTO>(
-			`${this.apiURL}${endpoint}/${user.id}`,
-		);
+		return this.http.get<any>(`${this.apiURL}${endpoint}/${user.id}`);
 	}
 
 	update(user: loginDTO, newPassword: string) {

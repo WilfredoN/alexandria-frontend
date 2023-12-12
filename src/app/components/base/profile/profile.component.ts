@@ -4,13 +4,12 @@ import { GroupService } from './group-service';
 import { Group } from './group.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService, LessonDTO } from '../../service/auth-service';
-import { loginDTO } from '../../service/login-dto';
 import { switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogChangePasswordComponent } from './dialog-change-password';
 import { ScheduleService } from '../../service/schedule-service';
 import { ConfirmDialogComponent } from './confirm-dialog.component';
-
+import { TeacherService } from '../../service/teacher-service';
 interface Student {
 	full_name: string;
 	login: string;
@@ -27,7 +26,6 @@ export class ProfileComponent implements OnInit {
 	isStudent: boolean;
 	user: any;
 	groups: Group[] = [];
-	userDTO: any;
 	student: Student = {
 		full_name: '',
 		login: '',
@@ -49,30 +47,37 @@ export class ProfileComponent implements OnInit {
 		public authService: AuthService,
 		private snackBar: MatSnackBar,
 		private scheduleService: ScheduleService,
+		private teacherService: TeacherService,
 	) {}
 
 	ngOnInit(): void {
 		this.initializeUser();
-		this.getUserData();
 	}
 
 	private initializeUser(): void {
-		//FIXME: this.user is not initialized
-		const storedUser = localStorage.getItem('user');
-		console.log(storedUser);
-		if (storedUser) {
-			this.user = JSON.parse(storedUser);
-			this.isStudent = this.user.role === 'student';
-		} else {
-			console.error('Пользователь не найден');
-			alert('Пользователь не найден');
-			this.router
-				.navigate(['/log-in'])
-				.then(() => console.log('Переход на страницу входа'));
-		}
-
+		this.user = JSON.parse(localStorage.getItem('user') as string);
+		console.log(this.user);
+		this.isStudent = this.user.role === 'student';
 		if (!this.isStudent) {
 			this.fetchGroups();
+			this.teacherService.getTeacherById(this.user.id).subscribe({
+				next: response => {
+					this.user = response;
+					this.user.role = 'teacher';
+				},
+				error: error => {
+					console.error('Ошибка при получении преподавателя', error);
+				},
+			});
+		} else {
+			this.authService.getUser(this.user).subscribe({
+				next: response => {
+					this.user = response;
+				},
+				error: error => {
+					console.error('Ошибка при получении пользователя', error);
+				},
+			});
 		}
 		console.log(this.user);
 	}
@@ -88,16 +93,6 @@ export class ProfileComponent implements OnInit {
 			},
 		});
 	}
-
-	public getUserData(): void {
-		if (this.user) {
-			this.authService.getUser(this.user).subscribe((userDTO: any) => {
-				this.user = JSON.parse(localStorage.getItem('user') ?? '');
-			});
-		}
-		console.log(this.user);
-	}
-
 	openChangePasswordDialog(): void {
 		const dialogRef = this.dialog.open(DialogChangePasswordComponent, {
 			data: {
@@ -126,7 +121,7 @@ export class ProfileComponent implements OnInit {
 		if (!this.isChecked) {
 			const dialogRef = this.dialog.open(ConfirmDialogComponent, {
 				width: '250px',
-				data: { message: 'Вы точно хотите перейти на админа?' },
+				data: { message: 'Вы точно хотите изменить роль?' },
 			});
 
 			dialogRef.afterClosed().subscribe(result => {
@@ -143,7 +138,7 @@ export class ProfileComponent implements OnInit {
 		this.authService.switchToAdmin(this.user).subscribe({
 			next: response => {
 				console.log(response);
-				this.isChecked = true;
+				this.isChecked = !this.isChecked;
 				this.initializeUser();
 			},
 			error: error => {
@@ -284,7 +279,7 @@ export class ProfileComponent implements OnInit {
 	saveGroups() {
 		this.groupService
 			.assignGroupsToTeacher(
-				this.userDTO.id,
+				this.user.id,
 				this.groups
 					.filter(group => group.selected)
 					.map(group => group.id),

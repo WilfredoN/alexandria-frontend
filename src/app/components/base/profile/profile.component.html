@@ -8,22 +8,25 @@
 				</div>
 			</div>
 			<div class="info_about">
-				<p>Имя аккаунта: {{ userDTO?.full_name }}</p>
-				<p>Логин: {{ userDTO?.login }}</p>
-				<div *ngIf="!userDTO?.group_name" class="switch-text-panel">
+				<p>Имя аккаунта: {{ this.user.full_name }}</p>
+				<p>Логин: {{ this.user.login }}</p>
+				<div
+					*ngIf="this.user.role === 'teacher'"
+					class="switch-text-panel"
+				>
 					<p>Admin:</p>
 					<label class="switch">
 						<input
 							type="checkbox"
 							[(ngModel)]="isChecked"
-							[checked]="this.user?.is_admin === 1"
+							[checked]="this.user.is_admin"
 							(click)="adminAccount()"
 						/>
 						<span class="slider round"></span>
 					</label>
 				</div>
-				<p *ngIf="isStudent && userDTO?.group_name">
-					Группа: {{ userDTO.group_name }}
+				<p *ngIf="isStudent && this.user.group_name">
+					Группа: {{ this.user.group_name }}
 				</p>
 				<button
 					class="btn_change btn-def-style"

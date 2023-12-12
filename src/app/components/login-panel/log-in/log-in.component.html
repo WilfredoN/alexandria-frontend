@@ -1,35 +1,68 @@
 <div class="container">
-    <div class="container_inner">
-        <div class="log-in-panel">
-            <h1>Authorization</h1>
-            <form class="form-input" [formGroup]="myForm" (ngSubmit)="logIn()">
-                <fieldset>
-                    <legend>Choose a role:</legend>
-                    <div [class.active]="selectedOption === 'teacher'" class="radioInput" (click)="selectOption('teacher')">
-                        <input class="option-radio" type="radio" id="teacher" value="teacher" [(ngModel)]="selectedOption" formControlName="role" checked required />
-                        <label for="teacher">Teacher</label>
-                    </div>
-                    <div [class.active]="selectedOption === 'student'" class="radioInput" (click)="selectOption('student')">
-                        <input class="option-radio" type="radio" id="student" value="student" formControlName="role"  required/>
-                        <label for="student">Student</label>
-                    </div>
-                </fieldset>
-    
-                <input class="em--input" type="email" placeholder="Login" formControlName="login"/>
-    
-                <input class="em--input" type="password" placeholder="Password" formControlName="password"/>
-    
-                <div class="example-button-row">
-                    <button class="log-inBtn" type="submit">Log in</button>
-                </div>
-            </form>
-    
-            <a routerLink="/sign-up">Register</a>
-            <div class="fututes">
-                <div class="line"></div>
-                <div class="line-back"></div>
-                <div class="line-2"><div class="pointer"></div></div>
-            </div>
-        </div>
-    </div>
+	<div class="container_inner">
+		<div class="log-in-panel">
+			<h1>Authorization</h1>
+			<form class="form-input" [formGroup]="myForm" (ngSubmit)="logIn()">
+				<fieldset>
+					<legend>Choose a role:</legend>
+					<div
+						[class.active]="selectedOption === 'teacher'"
+						class="radioInput"
+						(click)="selectOption('teacher')"
+					>
+						<input
+							class="option-radio"
+							type="radio"
+							id="teacher"
+							value="teacher"
+							formControlName="role"
+							checked
+							required
+						/>
+						<label for="teacher">Teacher</label>
+					</div>
+					<div
+						[class.active]="selectedOption === 'student'"
+						class="radioInput"
+						(click)="selectOption('student')"
+					>
+						<input
+							class="option-radio"
+							type="radio"
+							id="student"
+							value="student"
+							formControlName="role"
+							required
+						/>
+						<label for="student">Student</label>
+					</div>
+				</fieldset>
+
+				<input
+					class="em--input"
+					type="login"
+					placeholder="Login"
+					formControlName="login"
+				/>
+
+				<input
+					class="em--input"
+					type="password"
+					placeholder="Password"
+					formControlName="password"
+				/>
+
+				<div class="example-button-row">
+					<button class="log-inBtn" type="submit">Log in</button>
+				</div>
+			</form>
+
+			<a routerLink="/sign-up">Register</a>
+			<div class="fututes">
+				<div class="line"></div>
+				<div class="line-back"></div>
+				<div class="line-2"><div class="pointer"></div></div>
+			</div>
+		</div>
+	</div>
 </div>
