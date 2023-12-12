@@ -1,39 +1,79 @@
 <div class="container">
-    <div class="create_panel" *ngIf="user.role === 'teacher'">
-        <input type="text" id="title" placeholder="Заголовок" [(ngModel)]="news.title" required>
-        <textarea id="description" placeholder="Описание" [(ngModel)]="news.content" required></textarea>
-        <button id="send" (click)="createAnnouncement()">Создать</button>
-    </div>
-    <div *ngIf="announcements.length !== 0" class="announcements">
-        <div *ngFor="let news of this.announcements" class="announcement">
-            <div class="announcement_title">
-                <div>
-                    <h3>{{ news.title }}</h3>
-                    <h4>{{ news.created_at | date:'dd MMMM yyyy в HH:mm' : '+2' : 'ru'}}</h4>
-                </div>
-                <h5>{{ news.author_name }}</h5>
-            </div>
-            <div class="announcement_description">
-                <p>{{ news.content }}</p>
-            </div>
-            <div class="manipulate_button">
-                <button id="edit" *ngIf="user.role === 'teacher'" (click)="editAnnouncement(news.id)">Редактировать</button>
-                <button id="delete" *ngIf="user.role === 'teacher'" (click)="deleteAnnouncement(news.id)">Удалить</button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="announcements.length === 0" class="announcements">
-        <div class="announcement">
-            <div class="announcement_title">
-                <div>
-                    <h3>ЗАГОЛОВОК</h3>
-                    <h4>ДАТА СОЗДАНИЯ</h4>
-                </div>
-                <h5>АВТОР СТАТЬИ</h5>
-            </div>
-            <div class="announcement_description">
-                <p>СОДЕРЖИМОЕ</p>
-            </div>
-        </div>
-    </div>
+	<div class="create_panel" *ngIf="user.role === 'teacher'">
+		<input
+			type="text"
+			id="title"
+			placeholder="Заголовок"
+			[(ngModel)]="news.title"
+			required
+		/>
+		<textarea
+			id="description"
+			placeholder="Описание"
+			[(ngModel)]="news.content"
+			required
+		></textarea>
+		<button id="send" (click)="createAnnouncement()">Создать</button>
+	</div>
+	<div *ngIf="announcements.length !== 0" class="announcements">
+		<div *ngFor="let news of this.announcements" class="announcement">
+			<div class="announcement_title">
+				<div>
+					<h3>{{ news.title }}</h3>
+					<h4>
+						{{
+							news.created_at
+								| date : 'dd MMMM yyyy в HH:mm' : '+2' : 'ru'
+						}}
+					</h4>
+				</div>
+				<h5>{{ news.author_name }}</h5>
+			</div>
+			<div class="announcement_description">
+				<textarea
+					id="description_change"
+					*ngIf="news.isEditing"
+					[(ngModel)]="news.content"
+				></textarea>
+				<p *ngIf="!news.isEditing">{{ news.content }}</p>
+			</div>
+			<div class="manipulate_button">
+				<button
+					id="submitChanges"
+					*ngIf="news.isEditing"
+					(click)="submitChanges(news.id)"
+				>
+					Сохранить
+				</button>
+				<button
+					id="edit"
+					*ngIf="user.role === 'teacher'"
+					(click)="editAnnouncement(news.id)"
+				>
+					Редактировать
+				</button>
+				<button
+					id="delete"
+					*ngIf="user.role === 'teacher'"
+					(click)="deleteAnnouncement(news.id)"
+				>
+					Удалить
+				</button>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="announcements.length === 0" class="announcements">
+		<div class="announcement">
+			<div class="announcement_title">
+				<div>
+					<h3>ЗАГОЛОВОК</h3>
+					<h4>ДАТА СОЗДАНИЯ</h4>
+				</div>
+				<h5>АВТОР СТАТЬИ</h5>
+			</div>
+			<div class="announcement_description">
+				<p>СОДЕРЖИМОЕ</p>
+			</div>
+		</div>
+	</div>
 </div>
