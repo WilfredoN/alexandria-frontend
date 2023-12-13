@@ -35,6 +35,12 @@ table {
 .container {
 	width: 100%;
 	display: flex;
+    justify-content: center;
+	padding: 100px 0;
+}
+
+.container-inner{
+	display: flex;
 	align-items: center;
 }
 
@@ -317,6 +323,9 @@ option {
 		width: 100%;
 	}
 	.container {
+		flex-direction: column;
+	}
+	.container-inner {
 		flex-direction: column;
 	}
 }

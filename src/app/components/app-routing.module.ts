@@ -10,11 +10,13 @@ import {TeachersComponent} from './base/teachers/teachers.component';
 import {ProfileComponent} from './base/profile/profile.component';
 import {StudentsComponent} from "./base/students/students.component";
 import {NotFoundComponent} from "./base/not-found/not-found.component";
+import { Panel1Component } from './login-panel/sign-up/panel1/panel1.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'log-in', pathMatch: 'full'},
     {path: 'base', title: 'Главная', component: BaseComponent},
     {path: 'log-in', title: 'Авторизация', component: LogInComponent},
+    {path: 'confirmation', title: 'Підтвердження', component: Panel1Component},
     {path: 'sign-up', title: 'Регистрация', component: SignUpComponent},
     {path: 'tasks', title: 'Задания', component: TasksComponent},
     {path: 'announcements', title: 'Объявления', component: AnnouncementsComponent},
