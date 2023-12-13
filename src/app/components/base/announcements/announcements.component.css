@@ -4,11 +4,15 @@
 }
 
 .container {
+	width: 100%;
 	display: flex;
-	margin-top: 5%;
 	justify-content: center;
+}
+
+.container-inner{
+	display: flex;
 	flex-direction: column;
-	align-items: center;
+	padding-top: 85px;
 }
 
 .create_panel {
@@ -159,4 +163,10 @@ h4 {
 	transition: font-weight 0.2s ease-in-out;
 	font-size: 1.5em;
 	cursor: pointer;
+}
+
+@media screen and (max-width: 738px){
+	.create_panel{
+		width: 100%;
+	}
 }
