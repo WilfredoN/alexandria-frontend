@@ -110,7 +110,6 @@ export class AnnouncementsComponent implements OnInit {
 	cancelEdit(id: number) {
 		this.announcements.forEach(announcement => {
 			if (announcement.id === id) {
-				// Restore the announcement from the original copy
 				Object.assign(announcement, announcement.original);
 				delete announcement.original;
 				announcement.isEditing = false;
@@ -128,9 +127,9 @@ export class AnnouncementsComponent implements OnInit {
 					)
 					.subscribe({
 						next: response => {
-							console.log('Announcement updated:', response);
 							delete announcement.original;
 							announcement.isEditing = false;
+							this.fetchAnnouncements();
 						},
 						error: err => {
 							console.log('Error updating announcement:', err);
@@ -138,5 +137,16 @@ export class AnnouncementsComponent implements OnInit {
 					});
 			}
 		});
+	}
+	trimSeconds(date: Date | string): string {
+		if (typeof date === 'string') {
+			date = new Date(date);
+		}
+		let year = date.getFullYear();
+		let month = ('0' + (date.getMonth() + 1)).slice(-2);
+		let day = ('0' + date.getDate()).slice(-2);
+		let hours = ('0' + date.getHours()).slice(-2);
+		let minutes = ('0' + date.getMinutes()).slice(-2);
+		return `${year}-${month}-${day}T${hours}:${minutes}`;
 	}
 }

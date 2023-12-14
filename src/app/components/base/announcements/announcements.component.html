@@ -20,12 +20,40 @@
 			<div class="announcement_title">
 				<div>
 					<h3>{{ news.title }}</h3>
-					<h4>
-						{{
-							news.created_at
-								| date : 'dd MMMM yyyy в HH:mm' : '+2' : 'ru'
-						}}
-					</h4>
+					<div class="date">
+						<h4
+							id="created_date"
+							matTooltip="Время создания публикации"
+							matTooltipShowDelay="500"
+							[matTooltipPosition]="'left'"
+						>
+							{{
+								news.created_at
+									| date
+										: 'dd MMMM yyyy в HH:mm'
+										: '+2'
+										: 'ru'
+							}}
+						</h4>
+						<h4
+							*ngIf="
+								trimSeconds(news.updated_at) !=
+								trimSeconds(news.created_at)
+							"
+							id="updated_date"
+							matTooltip="Время обновления публикации"
+							matTooltipShowDelay="500"
+							[matTooltipPosition]="'left'"
+						>
+							{{
+								news.updated_at
+									| date
+										: 'dd MMMM yyyy в HH:mm'
+										: '+2'
+										: 'ru'
+							}}
+						</h4>
+					</div>
 				</div>
 				<h5>{{ news.author_name }}</h5>
 			</div>

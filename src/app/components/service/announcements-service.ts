@@ -39,8 +39,8 @@ export class AnnouncementsService {
 		id: number,
 		title: string,
 		content: string,
-	): Observable<Announcement> {
-		return this.http.put<Announcement>(`${this.apiURL}/update`, {
+	): Observable<any> {
+		return this.http.put<any>(`${this.apiURL}/update`, {
 			title,
 			content,
 		});
