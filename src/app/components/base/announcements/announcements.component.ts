@@ -19,6 +19,7 @@ export class AnnouncementsComponent implements OnInit {
 		created_at: new Date(),
 		updated_at: new Date(),
 		isEditing: false,
+		original: {},
 	};
 	user: any;
 
@@ -29,9 +30,16 @@ export class AnnouncementsComponent implements OnInit {
 
 	ngOnInit() {
 		this.user = JSON.parse(localStorage.getItem('user') || '{}');
+		this.fetchAnnouncements();
+	}
+	fetchAnnouncements() {
 		this.announcementsService.getAnnouncements().subscribe({
 			next: announcements => {
-				this.announcements = announcements;
+				this.announcements = announcements.sort(
+					(a, b) =>
+						new Date(a.created_at).getTime() -
+						new Date(b.created_at).getTime(),
+				);
 				this.announcements.forEach(announcement => {
 					this.teacherService
 						.getTeacherById(announcement.author_id)
@@ -51,7 +59,6 @@ export class AnnouncementsComponent implements OnInit {
 			},
 		});
 	}
-
 	createAnnouncement() {
 		if (this.news.title === '' || this.news.content === '') {
 			alert('Заполните все поля!');
@@ -95,7 +102,18 @@ export class AnnouncementsComponent implements OnInit {
 	editAnnouncement(id: number) {
 		this.announcements.forEach(announcement => {
 			if (announcement.id === id) {
+				announcement.original = { ...announcement };
 				announcement.isEditing = !announcement.isEditing;
+			}
+		});
+	}
+	cancelEdit(id: number) {
+		this.announcements.forEach(announcement => {
+			if (announcement.id === id) {
+				// Restore the announcement from the original copy
+				Object.assign(announcement, announcement.original);
+				delete announcement.original;
+				announcement.isEditing = false;
 			}
 		});
 	}
@@ -111,6 +129,7 @@ export class AnnouncementsComponent implements OnInit {
 					.subscribe({
 						next: response => {
 							console.log('Announcement updated:', response);
+							delete announcement.original;
 							announcement.isEditing = false;
 						},
 						error: err => {

@@ -304,6 +304,9 @@ option {
 	.lesson li {
 		width: 8em;
 	}
+	.pop-up {
+		width: 8em;
+	}
 	.icon-div {
 		margin-right: 0.5em;
 	}

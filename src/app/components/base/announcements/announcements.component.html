@@ -38,31 +38,30 @@
 				<p *ngIf="!news.isEditing">{{ news.content }}</p>
 			</div>
 			<div class="manipulate_button">
-				<button
-					id="submitChanges"
-					*ngIf="news.isEditing"
+				<mat-icon
+					*ngIf="user.role === 'teacher' && news.isEditing"
 					(click)="submitChanges(news.id)"
+					>check</mat-icon
 				>
-					Сохранить
-				</button>
-				<button
-					id="edit"
+				<mat-icon
 					*ngIf="user.role === 'teacher'"
-					(click)="editAnnouncement(news.id)"
+					(click)="
+						news.isEditing
+							? cancelEdit(news.id)
+							: editAnnouncement(news.id)
+					"
+					>edit</mat-icon
 				>
-					Редактировать
-				</button>
-				<button
-					id="delete"
+				<mat-icon
 					*ngIf="user.role === 'teacher'"
 					(click)="deleteAnnouncement(news.id)"
+					>delete</mat-icon
 				>
-					Удалить
-				</button>
 			</div>
 		</div>
 	</div>
-	<div *ngIf="announcements.length === 0" class="announcements">
+	<!-- uncomment if styling it without server active -->
+	<!-- <div *ngIf="announcements.length === 0" class="announcements">
 		<div class="announcement">
 			<div class="announcement_title">
 				<div>
@@ -75,5 +74,5 @@
 				<p>СОДЕРЖИМОЕ</p>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>

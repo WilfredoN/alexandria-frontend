@@ -7,4 +7,5 @@ export interface Announcement {
 	author_id: number;
 	author_name: string;
 	isEditing: boolean;
+	original?: {};
 }
