@@ -1,25 +1,34 @@
 <div class="container">
-    <div class="search">
-        <h1>Список студентов</h1>
-        <input id="search_input" type="search" placeholder="поиск">
-    </div>
-    <div class="students">
-        <div class="student" *ngFor="let student of students">
-            <div class="user">
-                <div class="icon"></div>
-                <div class="info">
-                    <div id="tips">
-                        <span>ФИО</span>
-                        <span>Группа</span>
-                        <span>Логин</span>
-                    </div>
-                    <div id="user_info">
-                        <p>{{ student.full_name }}</p>
-                        <p>{{ student.group_name }}</p>
-                        <p>{{ student.login }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="search">
+		<h1>Список студентов</h1>
+		<input id="search_input" type="search" placeholder="поиск" />
+	</div>
+	<div class="students">
+		<div class="student" *ngFor="let student of students">
+			<div class="user">
+				<div class="icon"></div>
+				<div class="info">
+					<div id="tips">
+						<span>ФИО</span>
+						<span>Группа</span>
+						<span>Логин</span>
+					</div>
+					<div id="user_info">
+						<p>{{ student.full_name }}</p>
+						<p>{{ student.group_name }}</p>
+						<p>{{ student.login }}</p>
+						<mat-icon
+							id="delete"
+							class="pop-up_icon"
+							[class.delete-icon-active]="
+								this.selectedStudent === student.login
+							"
+							(click)="deleteStudent(student.login)"
+							>close</mat-icon
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
