@@ -65,6 +65,9 @@ export class ScheduleComponent implements OnInit {
 		console.log(this.user);
 	}
 	fetchSchedules(groupName: string) {
+		if (groupName === '') {
+			return;
+		}
 		this.scheduleService.getSchedules(groupName).subscribe(schedules => {
 			this.schedules = schedules;
 			const lessonRequests: Observable<{
@@ -145,7 +148,7 @@ export class ScheduleComponent implements OnInit {
 				});
 				console.log('Groups ', this.groups);
 				this.selectedGroup = this.groups[0];
-				this.fetchSchedules(this.selectedGroup.name);
+				this.fetchSchedules(this.selectedGroup?.name);
 			},
 			error: err => {
 				console.log(err);

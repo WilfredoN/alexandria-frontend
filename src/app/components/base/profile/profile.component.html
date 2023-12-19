@@ -56,40 +56,6 @@
 				Сохранить
 			</button>
 		</div>
-		<div class="students_creator" *ngIf="!isStudent">
-			<h3>Добавить студентов</h3>
-			<form class="students_form" (ngSubmit)="createStudent()">
-				<table class="students_field">
-					<tr>
-						<td>
-							<label for="full_name">ФИО</label>
-							<input
-								class="input-profile"
-								type="text"
-								id="full_name"
-								name="full_name"
-								[(ngModel)]="student.full_name"
-								required
-							/>
-						</td>
-						<td>
-							<label for="group">Группа</label>
-							<input
-								class="input-profile"
-								type="text"
-								id="group"
-								name="group"
-								[(ngModel)]="student.group_name"
-								required
-							/>
-						</td>
-					</tr>
-				</table>
-				<button class="btn_create btn-def-style" type="submit">
-					Создать
-				</button>
-			</form>
-		</div>
 		<div class="lesson_creator" *ngIf="!isStudent">
 			<h3>Создать предмет</h3>
 			<form class="lessons_form" (ngSubmit)="createLesson()">

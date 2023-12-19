@@ -1,7 +1,37 @@
 <div class="container">
 	<div class="search">
 		<h1>Список студентов</h1>
-		<input id="search_input" type="search" placeholder="поиск" />
+		<div class="filter">
+			<button
+				id="add_student"
+				mat-raised-button
+				color="primary"
+				(click)="editMode()"
+			>
+				<mat-icon>add</mat-icon>Добавить студента
+			</button>
+			<button id="filter_icon" mat-button [matMenuTriggerFor]="menu">
+				<mat-icon> filter_list</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item>
+					<mat-radio-group [(ngModel)]="selectedGroup">
+						<mat-radio-button value="all" (change)="fetchStudents()"
+							>Все</mat-radio-button
+						>
+					</mat-radio-group>
+				</button>
+				<button mat-menu-item *ngFor="let group of groups">
+					<mat-radio-group [(ngModel)]="selectedGroup">
+						<mat-radio-button
+							[value]="group"
+							(change)="fetchStudentsByGroup(group)"
+							>{{ group }}</mat-radio-button
+						>
+					</mat-radio-group>
+				</button>
+			</mat-menu>
+		</div>
 	</div>
 	<div class="students">
 		<div class="student" *ngFor="let student of students">
@@ -11,19 +41,38 @@
 					<div id="tips">
 						<span>ФИО</span>
 						<span>Группа</span>
-						<span>Логин</span>
+						<span *ngIf="!student.isEdited">Логин</span>
 					</div>
 					<div id="user_info">
-						<p>{{ student.full_name }}</p>
-						<p>{{ student.group_name }}</p>
-						<p>{{ student.login }}</p>
+						<p *ngIf="!student.isEdited">{{ student.full_name }}</p>
+						<p *ngIf="!student.isEdited">
+							{{ student.group_name }}
+						</p>
+						<p *ngIf="!student.isEdited">{{ student.login }}</p>
+						<input
+							*ngIf="student.isEdited"
+							type="text"
+							[(ngModel)]="student.full_name"
+						/>
+						<input
+							*ngIf="student.isEdited"
+							type="text"
+							[(ngModel)]="student.group_name"
+						/>
+						<mat-icon
+							id="submit"
+							*ngIf="student.isEdited"
+							class="pop-up_icon"
+							(click)="submitNewStudent(student)"
+							>check</mat-icon
+						>
 						<mat-icon
 							id="delete"
 							class="pop-up_icon"
 							[class.delete-icon-active]="
 								this.selectedStudent === student.login
 							"
-							(click)="deleteStudent(student.login)"
+							(click)="deleteStudent(student)"
 							>close</mat-icon
 						>
 					</div>
