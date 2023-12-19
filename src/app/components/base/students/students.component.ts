@@ -153,7 +153,7 @@ export class StudentsComponent {
 		if (student.isEdited) {
 			this.students.splice(
 				this.students.findIndex(
-					student => student.login === student.login,
+					student => student.login === this.selectedStudent,
 				),
 				1,
 			);
