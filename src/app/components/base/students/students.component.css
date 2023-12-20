@@ -1,7 +1,9 @@
+*:not(mat-icon) {
+	font-family: 'Comfortaa', cursive;
+}
 .container {
 	color: white;
 	margin: 0 3em 0 3em;
-	font-family: 'Comfortaa', cursive;
 }
 
 .search {
@@ -27,7 +29,8 @@ input:focus {
 .students {
 	height: 100%;
 	display: grid;
-	grid-gap: 2em;
+	grid-column-gap: 2em;
+	grid-row-gap: 3em;
 	grid-template-columns: repeat(auto-fill, minmax(35em, 1fr));
 	grid-auto-rows: 7em;
 }
@@ -130,4 +133,9 @@ mat-icon {
 #submit:hover {
 	background-color: rgba(255, 255, 255, 0.5);
 	transition: background-color 0.25s ease-in-out;
+}
+@media screen and (max-width: 1024px) {
+	.search {
+		flex-direction: column;
+	}
 }

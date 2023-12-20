@@ -10,7 +10,7 @@ import { AuthService } from '../../service/auth-service';
 export class StudentsComponent {
 	user: any = JSON.parse(localStorage.getItem('user') as string);
 	groups: string[] = [];
-	selectedGroup: string;
+	selectedGroup: string = 'all';
 	students: {
 		full_name: string;
 		group_name: string;

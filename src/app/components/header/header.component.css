@@ -9,11 +9,7 @@
 	align-items: center;
 	justify-content: space-between;
 	background-color: rgba(30, 64, 89, 1);
-	padding: 0 20px;
-}
-
-.mat-toolbar {
-	width: auto;
+	overflow: hidden;
 }
 
 .logo {
