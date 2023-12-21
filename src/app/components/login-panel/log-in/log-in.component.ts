@@ -41,6 +41,9 @@ export class LogInComponent implements OnInit {
 	}
 	ngOnInit() {
 		this._formValidate();
+		if (localStorage.getItem('user')) {
+			this.router.navigate(['/base']).then(r => console.log(r));
+		}
 	}
 
 	_formValidate() {
