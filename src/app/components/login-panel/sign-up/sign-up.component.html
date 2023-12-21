@@ -1,41 +1,95 @@
 <div class="container">
-    <div class="container_inner">
-        <div class="log-in-panel">
-            <h1>Registration</h1>
-            <form class="form-input" [formGroup]="myForm" (ngSubmit)="_formSubmit()">
-                <input
-                    class="em--input"
-                    type="text"
-                    formControlName="full_name"
-                    placeholder="Full Name"
-                    required
-                />
-    
-                <input
-                    class="em--input"
-                    type="text"
-                    formControlName="login"
-                    placeholder="Login"
-                    required
-                />
-    
-                <input
-                    class="em--input"
-                    type="password"
-                    formControlName="pwd"
-                    placeholder="Choose password"
-                    required
-                />
-                <div class="example-button-row">
-                    <input type="submit" value="Register" class="log-inBtn"/>
-                </div>
-            </form>
-            <a routerLink="/log-in">Log in</a>
-            <div class="fututes">
-                <div class="line"><div class="pointer"></div></div>
-                <div class="line-back"></div>
-                <div class="line-2"></div>
-            </div>
-        </div>
-    </div>
+	<div class="container_inner">
+		<div class="log-in-panel">
+			<h1>Registration</h1>
+			<mat-stepper #stepper>
+				<mat-step
+					[stepControl]="firstFormGroup"
+					errorMessage="Не все поля заполнены!"
+				>
+					<form [formGroup]="firstFormGroup">
+						<ng-template matStepLabel
+							>Личная информация</ng-template
+						>
+						<input
+							class="em--input"
+							formControlName="full_name"
+							placeholder="Full Name"
+							required
+						/>
+						<input
+							class="em--input"
+							formControlName="login"
+							placeholder="Login"
+							required
+						/>
+						<input
+							class="em--input"
+							type="password"
+							formControlName="pwd"
+							placeholder="Choose password"
+							required
+						/>
+						<div>
+							<button mat-button matStepperNext>Дальше</button>
+						</div>
+					</form>
+				</mat-step>
+
+				<mat-step
+					[stepControl]="secondFormGroup"
+					errorMessage="Выберите хотя бы одну группу"
+				>
+					<form [formGroup]="secondFormGroup">
+						<ng-template matStepLabel>Ваши группы</ng-template>
+						<div formArrayName="groups">
+							<div *ngFor="let group of groups; let i = index">
+								<input
+									type="checkbox"
+									[formControlName]="i"
+									[id]="group.id"
+								/>
+								<label [for]="group.id">{{ group.name }}</label>
+							</div>
+							<button mat-button matStepperPrevious>Назад</button>
+							<button mat-button matStepperNext>Дальше</button>
+						</div>
+					</form>
+				</mat-step>
+
+				<mat-step
+					[stepControl]="thirdFormGroup"
+					errorMessage="Выберите хотя бы один предмет"
+				>
+					<form [formGroup]="thirdFormGroup">
+						<ng-template matStepLabel>Ваши предметы</ng-template>
+						<div formArrayName="subjects">
+							<div
+								*ngFor="let subject of subjects; let i = index"
+							>
+								<input
+									type="checkbox"
+									[formControlName]="i"
+									[id]="subject.id"
+								/>
+								<label [for]="subject.id">{{
+									subject.subject_name
+								}}</label>
+							</div>
+							<button mat-button matStepperPrevious>Назад</button>
+							<button mat-button (click)="_formSubmit()">
+								Регистрация
+							</button>
+						</div>
+					</form>
+				</mat-step>
+			</mat-stepper>
+			<a routerLink="/log-in">Log in</a>
+			<div class="fututes">
+				<div class="line"><div class="pointer"></div></div>
+				<div class="line-back"></div>
+				<div class="line-2"></div>
+			</div>
+		</div>
+	</div>
 </div>

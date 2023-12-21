@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GroupService } from './group-service';
 import { Group } from './group.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService, LessonDTO } from '../../service/auth-service';
+import { AuthService, SubjectDTO } from '../../service/auth-service';
 import { switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogChangePasswordComponent } from './dialog-change-password';
@@ -32,9 +32,9 @@ export class ProfileComponent implements OnInit {
 		group_name: '',
 		password: '',
 	};
-	lesson: LessonDTO = {
+	lesson: SubjectDTO = {
 		id: 0,
-		lesson_name: '',
+		subject_name: '',
 	};
 	studentList: any;
 
@@ -211,7 +211,7 @@ export class ProfileComponent implements OnInit {
 	}
 
 	createLesson() {
-		this.scheduleService.createLesson(this.lesson.lesson_name).subscribe({
+		this.scheduleService.createLesson(this.lesson.subject_name).subscribe({
 			next: response => {
 				this.snackBar.open('Предмет создан', 'Закрыть', {
 					duration: 2000,

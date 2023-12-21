@@ -36,7 +36,9 @@ import { StudentsComponent } from './base/students/students.component';
 import { ConfirmDialogComponent } from './base/profile/confirm-dialog.component';
 import { NotFoundComponent } from './base/not-found/not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
+
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
@@ -80,6 +82,7 @@ registerLocaleData(localeRu, 'ru');
 		MatAutocompleteModule,
 		MatTooltipModule,
 		MatRadioModule,
+		MatStepperModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

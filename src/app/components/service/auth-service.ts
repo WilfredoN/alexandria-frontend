@@ -6,9 +6,9 @@ import { loginDTO } from './login-dto';
 import { StudentDTO } from './student-dto';
 import { ApiService } from './api-service';
 
-export interface LessonDTO {
+export interface SubjectDTO {
 	id: number;
-	lesson_name: string;
+	subject_name: string;
 }
 
 export interface GroupDTO {
@@ -58,8 +58,8 @@ export class AuthService {
 		return this.http.get<TeacherDTO[]>(`${this.apiURL}/teachers`);
 	}
 
-	getLessons(): Observable<LessonDTO[]> {
-		return this.http.get<LessonDTO[]>(`${this.apiURL}/subjects`);
+	getLessons(): Observable<SubjectDTO[]> {
+		return this.http.get<SubjectDTO[]>(`${this.apiURL}/subjects`);
 	}
 
 	getGroups(): Observable<GroupDTO[]> {

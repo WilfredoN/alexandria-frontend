@@ -1,25 +1,11 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
+// Define your theme colors
 $alexandria-app-primary: mat.define-palette(mat.$indigo-palette);
 $alexandria-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $alexandria-app-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
+// Create the theme
 $alexandria-app-theme: mat.define-light-theme((
   color: (
     primary: $alexandria-app-primary,
@@ -27,9 +13,56 @@ $alexandria-app-theme: mat.define-light-theme((
     warn: $alexandria-app-warn,
   )
 ));
+// Include the default theme styles
+@include mat.core-theme($alexandria-app-theme);
+.mat-horizontal-stepper-header {
+  background:rgba(46, 121, 176, 1);
+  color: white;
+  border-radius: 8em;
+  overflow:hidden;
+}
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($alexandria-app-theme);
+.mat-horizontal-stepper-header-container {
+  padding: 1.3em 0;
+  font-size: 1.1em;
+}
+.mat-step-header {
+  margin-left: 0.2em;
 
+}
+.mat-step-text-label {
+  color: white;
+  padding: 1em;
+}
+.mat-horizontal-stepper-header-container .mat-step-icon-selected {
+  background-color: mat.get-color-from-palette($alexandria-app-accent);
+}
+.mat-stepper-horizontal-line {
+  background-color: mat.get-color-from-palette($alexandria-app-accent, 500);
+}
+
+.mat-step-icon {
+  background-color: mat.get-color-from-palette($alexandria-app-primary, 500);
+}
+#cdk-step-label-0-1 > div.mat-step-icon.mat-step-icon-state-edit > div > span {
+	display: none;
+}
+#cdk-step-label-0-2 > div.mat-step-icon.mat-step-icon-state-edit > div > span {
+  display: none;
+}
+.mat-step-icon-selected {
+  background-color: mat.get-color-from-palette($alexandria-app-accent);
+}
+
+.mat-step-icon-state-done, .mat-step-icon-state-edit {
+  background-color: mat.get-color-from-palette($alexandria-app-accent);
+}
+
+.mat-mdc-button:not(:disabled) {
+  -webkit-text-fill-color: white;
+  background-color: rgba(46, 121, 176, 1);
+  border-radius: 8em;
+  padding: 1.5em;
+  margin-left: 1em;
+  margin-top: 1.5em;
+}
