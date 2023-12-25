@@ -17,6 +17,7 @@
 	font-size: 3em;
 	color: rgba(82, 135, 173, 1);
 	cursor: pointer;
+	user-select: none;
 }
 
 #profileMenu {

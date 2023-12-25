@@ -50,20 +50,20 @@ export class ProfileComponent implements OnInit {
 		private teacherService: TeacherService,
 	) {}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
 		this.initializeUser();
 	}
 
-	private initializeUser(): void {
+	async initializeUser(): Promise<void> {
 		this.user = JSON.parse(localStorage.getItem('user') as string);
-		console.log(this.user);
 		this.isStudent = this.user.role === 'student';
 		if (!this.isStudent) {
-			this.fetchGroups();
 			this.teacherService.getTeacherById(this.user.id).subscribe({
 				next: response => {
+					console.log(response);
 					this.user = response;
 					this.user.role = 'teacher';
+					localStorage.setItem('user', JSON.stringify(this.user));
 				},
 				error: error => {
 					console.error('Ошибка при получении преподавателя', error);
@@ -79,19 +79,6 @@ export class ProfileComponent implements OnInit {
 				},
 			});
 		}
-		console.log(this.user);
-	}
-
-	private fetchGroups(): void {
-		this.groupService.getGroups().subscribe({
-			next: response => {
-				this.groups = response;
-				console.log('Список групп:', this.groups);
-			},
-			error: error => {
-				console.error('Ошибка при получении списка групп', error);
-			},
-		});
 	}
 	openChangePasswordDialog(): void {
 		const dialogRef = this.dialog.open(DialogChangePasswordComponent, {
