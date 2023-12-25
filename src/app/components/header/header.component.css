@@ -22,8 +22,11 @@
 #profileMenu {
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 }
-
+#menu {
+	cursor: pointer;
+}
 .profile {
 	width: fit-content;
 	height: fit-content;

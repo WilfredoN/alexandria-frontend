@@ -41,7 +41,24 @@ export class AuthService {
 			this.httpOptions,
 		);
 	}
-
+	assignGroupsToTeacher(
+		teacherId: number,
+		groupIds: number[],
+	): Observable<{ teacherId: number; groups: number[] }> {
+		return this.http.post<{ teacherId: number; groups: number[] }>(
+			`${this.apiURL}/groups/assign/${teacherId}`,
+			groupIds,
+		);
+	}
+	assignSubjectsToTeacher(
+		teacherId: number,
+		subjectIds: number[],
+	): Observable<{ teacherId: number; subjects: number[] }> {
+		return this.http.post<{ teacherId: number; subjects: number[] }>(
+			`${this.apiURL}/subjects/assign/${teacherId}`,
+			subjectIds,
+		);
+	}
 	registerStudent(user: any): Observable<Response> {
 		return this.http.post<Response>(
 			`${this.apiURL}/students/create`,
@@ -61,7 +78,16 @@ export class AuthService {
 	getLessons(): Observable<SubjectDTO[]> {
 		return this.http.get<SubjectDTO[]>(`${this.apiURL}/subjects`);
 	}
-
+	getTeacherSubjects(id: number): Observable<SubjectDTO[]> {
+		return this.http.get<SubjectDTO[]>(
+			`${this.apiURL}/teachers/${id}/subjects`,
+		);
+	}
+	getTeacherGroups(id: number): Observable<GroupDTO[]> {
+		return this.http.get<GroupDTO[]>(
+			`${this.apiURL}/teachers/${id}/groups`,
+		);
+	}
 	getGroups(): Observable<GroupDTO[]> {
 		return this.http.get<GroupDTO[]>(`${this.apiURL}/groups`);
 	}
@@ -147,7 +173,6 @@ export class AuthService {
 
 	switchToAdmin(user: any): Observable<any> {
 		console.log(user);
-		console.log(!user.is_admin);
 		return this.http.put<any>(
 			`${this.apiURL}/teachers/${user.login}`,
 			{ password: user.password, is_admin: !user.is_admin },

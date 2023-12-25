@@ -4,7 +4,7 @@
 		<mat-icon class="profile" [matMenuTriggerFor]="profileMenu"
 			>account_circle
 		</mat-icon>
-		<mat-menu #profileMenu="matMenu">
+		<mat-menu id="menu" #profileMenu="matMenu">
 			<button mat-menu-item routerLink="profile">Мой профиль</button>
 			<button mat-menu-item (click)="logout()">Выйти</button>
 		</mat-menu>

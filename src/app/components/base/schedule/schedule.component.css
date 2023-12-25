@@ -312,7 +312,7 @@ option {
 		padding: 0.5em;
 	}
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 860px) {
 	.main-schedule-table {
 		overflow-x: scroll;
 		width: 100%;

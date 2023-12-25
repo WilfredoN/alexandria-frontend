@@ -186,30 +186,6 @@ export class ProfileComponent implements OnInit {
 		}
 	}
 
-	saveGroups() {
-		this.groupService
-			.assignGroupsToTeacher(
-				this.user.id,
-				this.groups
-					.filter(group => group.selected)
-					.map(group => group.id),
-			)
-			.subscribe({
-				next: response => {
-					console.log(response);
-				},
-				error: error => {
-					console.error('Ошибка при сохранении групп', error);
-					console.log(
-						'Список групп:',
-						this.groups
-							.filter(group => group.selected)
-							.map(group => group.id),
-					);
-				},
-			});
-	}
-
 	createLesson() {
 		this.scheduleService.createLesson(this.lesson.subject_name).subscribe({
 			next: response => {

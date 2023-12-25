@@ -3,6 +3,7 @@ import { ScheduleService } from '../../service/schedule-service';
 import { Schedule } from '../../service/schedule-dto';
 import { forkJoin, Observable } from 'rxjs';
 import { AuthService } from '../../service/auth-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-schedule',
@@ -55,13 +56,13 @@ export class ScheduleComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getCreatorData();
 		const storedUser = localStorage.getItem('user') as string;
 		this.user = JSON.parse(storedUser);
 		this.isStudent = this.user.role === 'student';
 		if (this.isStudent) {
 			this.lesson.week_type = this.calculateWeekType();
 		}
+		this.getCreatorData();
 		console.log(this.user);
 	}
 	fetchSchedules(groupName: string) {
@@ -134,14 +135,16 @@ export class ScheduleComponent implements OnInit {
 			console.log('Teachers ', this.teacherNames);
 		});
 
-		this.authService.getLessons().subscribe((lessons: any) => {
-			this.lessonNames = lessons.map((lesson: any) => {
-				return { id: lesson.id, subject_name: lesson.subject_name };
+		this.authService
+			.getTeacherSubjects(this.user.id)
+			.subscribe((lessons: any) => {
+				this.lessonNames = lessons.map((lesson: any) => {
+					return { id: lesson.id, subject_name: lesson.subject_name };
+				});
+				console.log('Lessons ', this.lessonNames);
 			});
-			console.log('Lessons ', this.lessonNames);
-		});
 
-		this.authService.getGroups().subscribe({
+		this.authService.getTeacherGroups(this.user.id).subscribe({
 			next: (groups: any) => {
 				this.groups = groups.map((group: any) => {
 					return { id: group.id, name: group.name };

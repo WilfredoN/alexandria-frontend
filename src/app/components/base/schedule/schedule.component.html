@@ -161,11 +161,28 @@
 										type="text"
 										[(ngModel)]="lessonNameInput"
 										placeholder="Название предмета"
+										[matAutocomplete]="auto"
+										matAutocompletePosition="above"
 										[class.input-active]="
 											this.isConfirmReady
 										"
 										(click)="$event.stopPropagation()"
 									/>
+									<mat-autocomplete
+										autoActiveFirstOption
+										#auto="matAutocomplete"
+									>
+										@for (lesson of lessonNames; track
+										lesson) {
+										<mat-option
+											[value]="lesson.subject_name"
+											>{{
+												lesson.subject_name
+											}}</mat-option
+										>
+										}
+									</mat-autocomplete>
+
 									<div id="icons-empty">
 										<mat-icon
 											id="add"

@@ -122,7 +122,12 @@ export class SignUpComponent implements OnInit {
 			password: this.firstFormGroup.value.pwd,
 			role: 'teacher',
 			isAdmin: false,
+			groups: [],
+			subjects: [],
 		};
+		this.register(userDTO);
+	}
+	register(userDTO: any) {
 		this.authService.register(userDTO).subscribe({
 			next: (response: any) => {
 				console.log(response);
@@ -130,6 +135,7 @@ export class SignUpComponent implements OnInit {
 					duration: 3000,
 				});
 				userDTO.id = response.id;
+				this.assignGroupsAndSubjects(userDTO);
 				userDTO.role = 'teacher';
 				localStorage.setItem('user', JSON.stringify(userDTO));
 				this.router
@@ -143,5 +149,41 @@ export class SignUpComponent implements OnInit {
 				console.error(err);
 			},
 		});
+	}
+	assignGroupsAndSubjects(userDTO: any) {
+		const groupIds = this.secondFormGroup.value.groups
+			.map((checked: boolean, i: number) =>
+				checked ? this.groups[i].id : null,
+			)
+			.filter((v: number) => v !== null);
+		const subjectIds = this.thirdFormGroup.value.subjects
+			.map((checked: boolean, i: number) =>
+				checked ? this.subjects[i].id : null,
+			)
+			.filter((v: number) => v !== null);
+
+		this.authService.assignGroupsToTeacher(userDTO.id, groupIds).subscribe({
+			next: (response: any) => {
+				console.log(response);
+				// Save the assigned groups into the userDTO object
+				userDTO.groups = this.groups.filter(group =>
+					groupIds.includes(group.id),
+				);
+			},
+			error: err => console.error(err),
+		});
+
+		this.authService
+			.assignSubjectsToTeacher(userDTO.id, subjectIds)
+			.subscribe({
+				next: (response: any) => {
+					console.log(response);
+					// Save the assigned subjects into the userDTO object
+					userDTO.subjects = this.subjects.filter(subject =>
+						subjectIds.includes(subject.id),
+					);
+				},
+				error: err => console.error(err),
+			});
 	}
 }
