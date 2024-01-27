@@ -13,6 +13,9 @@ $alexandria-app-theme: mat.define-light-theme((
   )
 ));
 @include mat.all-component-themes($alexandria-app-theme);
+* {
+  font-family: 'Comfortaa', cursive;
+}
 .mat-horizontal-stepper-header {
   background:rgba(46, 121, 176, 1);
   color: white;
@@ -21,7 +24,7 @@ $alexandria-app-theme: mat.define-light-theme((
 }
 
 .mat-horizontal-stepper-header-container {
-  padding: 1.3em 0;
+  padding: 3.3em 0;
   font-size: 1.1em;
 }
 .mat-step-header {
@@ -45,12 +48,6 @@ $alexandria-app-theme: mat.define-light-theme((
 .mat-step-icon {
   background-color: mat.get-color-from-palette($alexandria-app-primary, 500);
 }
-// #cdk-step-label-0-1 > div.mat-step-icon.mat-step-icon-state-edit > div > span {
-// 	display: none;
-// }
-// #cdk-step-label-0-2 > div.mat-step-icon.mat-step-icon-state-edit > div > span {
-//   display: none;
-// }
 .mat-step-icon-selected {
   background-color: mat.get-color-from-palette($alexandria-app-accent);
 }
@@ -78,4 +75,24 @@ $mdc-snackbar-container-color: rgba(46, 121, 176, 1);
 .mdc-snackbar--open .mdc-snackbar__surface {
   display: flex;
   align-items: center;
+}
+.mat-stepper-vertical, .mat-stepper-horizontal {
+$mat-stepper-container-color: rgba(46, 121, 176, 1);
+}
+.mat-mdc-button:not(:disabled) {
+  --mdc-text-button-label-text-color: white;
+  color: var(--mdc-text-button-label-text-color);
+}
+@media (max-width: 960px) {
+  .mat-stepper-horizontal-line {
+    display: none;
+  }
+  .mat-horizontal-stepper-header-container {
+    padding: 0 1.5em;
+    font-size: 1em;
+    flex-direction: column;
+  }
+  .mat-step-header {
+    margin: .5em 0;
+  }
 }

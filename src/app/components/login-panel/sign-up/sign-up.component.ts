@@ -103,13 +103,19 @@ export class SignUpComponent implements OnInit {
 			);
 			return;
 		}
-		if (this.secondFormGroup.value.groups.length === 0) {
+		if (
+			this.secondFormGroup.value.groups.length === 0 &&
+			this.groups.length > 0
+		) {
 			this._snackBar.open('Select at least one group', 'Close', {
 				duration: 3000,
 			});
 			return;
 		}
-		if (this.thirdFormGroup.value.subjects.length === 0) {
+		if (
+			this.thirdFormGroup.value.subjects.length === 0 &&
+			this.subjects.length > 0
+		) {
 			this._snackBar.open('Select at least one subject', 'Close', {
 				duration: 3000,
 			});

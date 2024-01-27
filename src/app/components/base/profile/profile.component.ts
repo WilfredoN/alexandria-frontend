@@ -63,6 +63,7 @@ export class ProfileComponent implements OnInit {
 					console.log(response);
 					this.user = response;
 					this.user.role = 'teacher';
+					this.isChecked = this.user.is_admin;
 					localStorage.setItem('user', JSON.stringify(this.user));
 				},
 				error: error => {

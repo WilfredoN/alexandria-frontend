@@ -8,6 +8,8 @@
 		100,
 		143
 	);
+	--mat-stepper-container-color: transparent;
+	--mdc-text-button-label-text-color: rgb(255, 255, 255);
 }
 .container {
 	width: 100%;
@@ -64,9 +66,13 @@
 	border-radius: 40px;
 	display: flex;
 	flex-direction: column;
+	min-height: 37em;
 	align-items: center;
 	box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
 	margin: 0 30px;
+}
+mat-stepper {
+	min-height: 60%;
 }
 .log-in-panel h1 {
 	color: rgba(200, 200, 200, 1);
@@ -167,23 +173,23 @@ form {
 	align-items: center;
 	justify-content: center;
 }
-@media only screen and (max-width: 787px) {
-	.fututes {
-		display: none;
-	}
-}
-
-@media only screen and (max-width: 502px) {
+@media only screen and (max-width: 1028px) {
 	.container_inner {
 		width: 100%;
 	}
+	.fututes {
+		display: none;
+	}
 	.em--input {
-		width: 100%;
 		padding: 0.5em 0.7em;
 		border: 0;
 		background: var(--mdc-filled-text-field-container-color);
 		font-size: 1.4em;
 		color: white;
+	}
+	.log-in-panel {
+		padding: 0;
+		margin: 0;
 	}
 	.log-in-panel h1 {
 		color: rgba(200, 200, 200, 1);

@@ -3,7 +3,6 @@ import { ScheduleService } from '../../service/schedule-service';
 import { Schedule } from '../../service/schedule-dto';
 import { forkJoin, Observable } from 'rxjs';
 import { AuthService } from '../../service/auth-service';
-import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-schedule',
