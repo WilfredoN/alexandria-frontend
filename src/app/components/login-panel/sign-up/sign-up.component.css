@@ -166,7 +166,10 @@ mat-label {
 	color: #9e9eea;
 	transition: 0.5s;
 }
-
+.found_groups,
+.found_subjects {
+	font-size: 1.3em;
+}
 form {
 	display: flex;
 	flex-direction: column;

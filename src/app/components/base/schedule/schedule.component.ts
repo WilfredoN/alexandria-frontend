@@ -277,6 +277,17 @@ export class ScheduleComponent implements OnInit {
 	}
 	insertSchedule(lesson_num: number, day: string) {
 		if (this.movingSchedule) {
+			const existingSchedule = this.schedules.find(
+				schedule =>
+					schedule.lesson_num === lesson_num &&
+					schedule.day_of_week === day &&
+					schedule.week_type === this.lesson.week_type,
+			);
+			if (existingSchedule) {
+				alert('На эту позицию уже назначен предмет!');
+				this.movingSchedule = null;
+				return;
+			}
 			const newSchedule = {
 				subject_id: this.movingSchedule.subject_id,
 				teacher_id: this.movingSchedule.teacher_id,

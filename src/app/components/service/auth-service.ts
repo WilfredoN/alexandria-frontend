@@ -20,7 +20,7 @@ export interface GroupDTO {
 	providedIn: 'root',
 })
 export class AuthService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) { }
 	private apiURL = ApiService.API_URL;
 
 	httpOptions = {
@@ -157,7 +157,7 @@ export class AuthService {
 	}
 
 	update(user: loginDTO, newPassword: string) {
-		const endpoint = user.role === 'teacher' ? '/teachers' : '/students';
+		const endpoint = user.role === 'teacher' ? '/teachers/update' : '/students/update';
 		const url = `${this.apiURL}${endpoint}/${user.login}`;
 
 		const headers = {
@@ -174,8 +174,8 @@ export class AuthService {
 	switchToAdmin(user: any): Observable<any> {
 		console.log(user);
 		return this.http.put<any>(
-			`${this.apiURL}/teachers/${user.login}`,
-			{ password: user.password, is_admin: !user.is_admin },
+			`${this.apiURL}/teachers/update/${user.login}`,
+			{ is_admin: !user.is_admin },
 			this.httpOptions,
 		);
 	}
