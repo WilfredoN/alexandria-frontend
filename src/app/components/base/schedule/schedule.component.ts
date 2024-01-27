@@ -212,6 +212,10 @@ export class ScheduleComponent implements OnInit {
 	isConfirmReady: boolean = false;
 
 	togglePopUp(num: number, day: string) {
+		if (this.selectedGroup == undefined) {
+			alert('Выберите группу!');
+			return;
+		}
 		if (
 			this.popUpVisibility.num === num &&
 			this.popUpVisibility?.day === day
