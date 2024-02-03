@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
 		private router: Router,
 		private _snackBar: MatSnackBar,
 		private authService: AuthService,
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.firstFormGroup = this._formBuilder.group({
@@ -34,16 +34,16 @@ export class SignUpComponent implements OnInit {
 
 		this.secondFormGroup = this._formBuilder.group({
 			groups: this._formBuilder.array(
-				this.groups.map(() => this._formBuilder.control(false)),
-				Validators.required,
-			),
+				this.groups.map(() => this._formBuilder.array([]),
+					Validators.required,
+				)),
 		});
 
 		this.thirdFormGroup = this._formBuilder.group({
 			subjects: this._formBuilder.array(
-				this.subjects.map(() => this._formBuilder.control(false)),
-				Validators.required,
-			),
+				this.subjects.map(() => this._formBuilder.array([]),
+					Validators.required,
+				)),
 		});
 
 		this.fetchGroupsAndSubjects();
@@ -56,7 +56,9 @@ export class SignUpComponent implements OnInit {
 				this.secondFormGroup.setControl(
 					'groups',
 					this._formBuilder.array(
-						this.groups.map(() => this._formBuilder.control(false)),
+						this.groups.map(() =>
+							this._formBuilder.array([]),
+						),
 					),
 				);
 			},
@@ -70,7 +72,7 @@ export class SignUpComponent implements OnInit {
 					'subjects',
 					this._formBuilder.array(
 						this.subjects.map(() =>
-							this._formBuilder.control(false),
+							this._formBuilder.array([]),
 						),
 					),
 				);
@@ -192,4 +194,16 @@ export class SignUpComponent implements OnInit {
 				error: err => console.error(err),
 			});
 	}
+	toggleCheckboxStyle(event: Event) {
+		const checkbox = event.target as HTMLInputElement;
+		const parentLabel = checkbox.nextElementSibling as HTMLElement;
+		if (checkbox.checked) {
+			parentLabel.classList.add('checked');
+		} else {
+			parentLabel.classList.remove('checked');
+		}
+	}
+
+
+
 }

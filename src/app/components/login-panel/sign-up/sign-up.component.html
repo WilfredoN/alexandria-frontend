@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="container_inner">
 		<div class="log-in-panel">
-			<h1>Registration</h1>
+			<h1 style="user-select:none;">Registration</h1>
 			<mat-stepper #stepper>
 				<mat-step [stepControl]="firstFormGroup" errorMessage="Не все поля заполнены!">
 					<form [formGroup]="firstFormGroup">
@@ -17,33 +17,47 @@
 				</mat-step>
 
 				<mat-step [stepControl]="secondFormGroup" errorMessage="Выберите хотя бы одну группу">
-					<form [formGroup]="secondFormGroup">
+					<form [formGroup]="secondFormGroup" class="form_selections">
 						<ng-template matStepLabel>Ваши группы</ng-template>
-						<div formArrayName="groups">
-							<div *ngFor="let group of groups; let i = index">
-								<input type="checkbox" [formControlName]="i" [id]="group.id" />
-								<label class="found_groups" [for]="group.id">{{ group.name }}</label>
+						<div class="grid-container">
+							<div class="groups-grid">
+
+								<div class="selection_checkbox" *ngFor="let group of groups; let i = index">
+									<input type="checkbox" class="found_checkbox" [formControlName]="i"
+										[id]="'group_' + group.id" style="display: none;" />
+									<label class="found_groups" [for]="'group_' + group.id">{{ group.name }}</label>
+								</div>
+
 							</div>
-							<button mat-button matStepperPrevious>Назад</button>
-							<button mat-button matStepperNext>Дальше</button>
+							<div class="buttons">
+								<button mat-button matStepperPrevious>Назад</button>
+								<button mat-button matStepperNext>Дальше</button>
+							</div>
 						</div>
 					</form>
 				</mat-step>
 
 				<mat-step [stepControl]="thirdFormGroup" errorMessage="Выберите хотя бы один предмет">
-					<form [formGroup]="thirdFormGroup">
+					<form [formGroup]="thirdFormGroup" class="form_selections">
 						<ng-template matStepLabel>Ваши предметы</ng-template>
-						<div formArrayName="subjects">
-							<div *ngFor="let subject of subjects; let i = index">
-								<input type="checkbox" [formControlName]="i" [id]="subject.id" />
-								<label class="found_subjects" [for]="subject.id">{{
-									subject.subject_name
-									}}</label>
+						<div class="grid-container">
+							<div class="subjects-grid">
+
+								<div *ngFor="let subject of subjects; let i = index" class="selection_checkbox">
+									<input type="checkbox" class="found_checkbox" [formControlName]="i"
+										[id]="'subject_' + subject.id" style="display: none;" />
+									<label class="found_subjects" [for]="'subject_' + subject.id">{{
+										subject.subject_name
+										}}</label>
+
+								</div>
 							</div>
-							<button mat-button matStepperPrevious>Назад</button>
-							<button mat-button (click)="_formSubmit()">
-								Регистрация
-							</button>
+							<div class="buttons">
+								<button mat-button matStepperPrevious>Назад</button>
+								<button mat-button (click)="_formSubmit()">
+									Регистрация
+								</button>
+							</div>
 						</div>
 					</form>
 				</mat-step>

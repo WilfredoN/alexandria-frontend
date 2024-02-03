@@ -5,42 +5,46 @@ $alexandria-app-primary: mat.define-palette(mat.$indigo-palette);
 $alexandria-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 $alexandria-app-warn: mat.define-palette(mat.$red-palette);
-$alexandria-app-theme: mat.define-light-theme((
-  color: (
-    primary: $alexandria-app-primary,
-    accent: $alexandria-app-accent,
-    warn: $alexandria-app-warn,
-  )
-));
+$alexandria-app-theme: mat.define-light-theme((color: (primary: $alexandria-app-primary,
+        accent: $alexandria-app-accent,
+        warn: $alexandria-app-warn,
+      )));
 @include mat.all-component-themes($alexandria-app-theme);
+
 * {
   font-family: 'Comfortaa', cursive;
 }
+
 .mat-horizontal-stepper-header {
-  background:rgba(46, 121, 176, 1);
+  background: rgba(46, 121, 176, 1);
   color: white;
   border-radius: 8em;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .mat-horizontal-stepper-header-container {
-  padding: 3.3em 0;
+  padding: 3.3em 0 1.3em 0;
   font-size: 1.1em;
 }
+
 .mat-step-header {
   margin-left: 0.2em;
 }
+
 .mat-mdc-menu-content {
-	background-color: white;
+  background-color: white;
   border-radius: 2em;
 }
+
 .mat-step-text-label {
   color: white;
   padding: 1em;
 }
+
 .mat-horizontal-stepper-header-container .mat-step-icon-selected {
   background-color: mat.get-color-from-palette($alexandria-app-accent);
 }
+
 .mat-stepper-horizontal-line {
   background-color: mat.get-color-from-palette($alexandria-app-accent, 500);
 }
@@ -48,14 +52,18 @@ $alexandria-app-theme: mat.define-light-theme((
 .mat-step-icon {
   background-color: mat.get-color-from-palette($alexandria-app-primary, 500);
 }
+
 .mat-step-icon-selected {
   background-color: mat.get-color-from-palette($alexandria-app-accent);
 }
 
-.mat-step-icon-state-done, .mat-step-icon-state-edit {
+.mat-step-icon-state-done,
+.mat-step-icon-state-edit {
   background-color: mat.get-color-from-palette($alexandria-app-accent);
 }
+
 $mdc-snackbar-container-color: rgba(46, 121, 176, 1);
+
 .mat-mdc-snack-bar-container .mdc-snackbar__surface {
   color: white;
   border-radius: 8em;
@@ -63,38 +71,51 @@ $mdc-snackbar-container-color: rgba(46, 121, 176, 1);
   margin-left: 1em;
   margin-bottom: 1.5em;
 }
+
 .mat-mdc-snack-bar-container .mdc-snackbar__label {
   padding: 0;
   margin: auto;
 }
+
 .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
   margin: auto;
   height: 80%;
   margin-left: 2em;
 }
-.mat-mdc-button .mdc-button__label, .mat-mdc-unelevated-button .mdc-button__label, .mat-mdc-raised-button .mdc-button__label, .mat-mdc-outlined-button .mdc-button__label {
+
+.mat-mdc-button .mdc-button__label:not(.mdc-button__label),
+.mat-mdc-unelevated-button .mdc-button__label:not(.mdc-button__label),
+.mat-mdc-raised-button .mdc-button__label:not(.mdc-button__label),
+.mat-mdc-outlined-button .mdc-button__label {
   font-size: 1.3em;
   margin-top: 1.2em;
 }
+
 .mdc-snackbar--open .mdc-snackbar__surface {
   display: flex;
   align-items: center;
 }
-.mat-stepper-vertical, .mat-stepper-horizontal {
-$mat-stepper-container-color: rgba(46, 121, 176, 1);
+
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+  $mat-stepper-container-color: rgba(46, 121, 176, 1);
 }
+
 .mat-mdc-button:not(:disabled) {
   --mdc-text-button-label-text-color: white;
 }
+
 @media (max-width: 960px) {
   .mat-stepper-horizontal-line {
     display: none;
   }
+
   .mat-horizontal-stepper-header-container {
     padding: 0 1.5em;
     font-size: 1em;
     flex-direction: column;
   }
+
   .mat-step-header {
     margin: .5em 0;
   }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GroupService } from './group-service';
 import { Group } from './group.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService, SubjectDTO } from '../../service/auth-service';
-import { switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogChangePasswordComponent } from './dialog-change-password';
 import { ScheduleService } from '../../service/schedule-service';
@@ -42,13 +40,12 @@ export class ProfileComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private groupService: GroupService,
 		public dialog: MatDialog,
 		public authService: AuthService,
 		private snackBar: MatSnackBar,
 		private scheduleService: ScheduleService,
 		private teacherService: TeacherService,
-	) {}
+	) { }
 
 	async ngOnInit(): Promise<void> {
 		this.initializeUser();

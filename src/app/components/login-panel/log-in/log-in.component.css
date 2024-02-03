@@ -18,6 +18,7 @@
 	box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
 	margin: 0 30px;
 }
+
 .option-radio {
 	appearance: none;
 	-webkit-appearance: none;
@@ -55,6 +56,7 @@ textarea:focus,
 input:focus {
 	outline: none;
 }
+
 fieldset {
 	border: 0;
 	display: flex;
@@ -73,9 +75,25 @@ legend {
 	border-radius: 23px;
 	padding: 10px 44px;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-box-shadow: 0 0 0px 1000px var(--mdc-filled-text-field-container-color) inset;
+	-webkit-text-fill-color: white;
+	font-size: 1.8em;
+}
+
 .radioInput.active {
 	background: rgba(46, 121, 176, 1);
 }
+
 .radioInput.active label {
 	color: white;
 }
@@ -119,6 +137,7 @@ label {
 	text-decoration: none;
 	margin-bottom: 2em;
 }
+
 .log-in-panel a:hover {
 	color: #9e9eea;
 	transition: 0.5s;
@@ -136,6 +155,7 @@ form {
 	left: -5px;
 	top: 34px;
 }
+
 .line {
 	background: rgba(42, 87, 120, 1);
 	position: absolute;
@@ -145,6 +165,7 @@ form {
 	padding: 1.3em 0;
 	border-radius: 40px;
 }
+
 .line-back {
 	background: #102636;
 	position: absolute;
@@ -154,6 +175,7 @@ form {
 	padding: 1.3em 0;
 	border-radius: 40px;
 }
+
 .line-2 {
 	background: rgba(42, 87, 120, 1);
 	position: absolute;
@@ -163,6 +185,7 @@ form {
 	padding: 1.3em 0;
 	border-radius: 40px;
 }
+
 .pointer {
 	background: rgba(42, 87, 120, 1);
 	position: absolute;
@@ -183,21 +206,26 @@ form {
 	.container_inner {
 		width: 100%;
 	}
+
 	legend {
 		font-size: 18px;
 	}
+
 	label {
 		font-size: 16px;
 	}
+
 	.radioInput {
 		padding: 4px 22px;
 	}
+
 	.em--input {
 		width: 100%;
 		padding: 0.5em 0.5em;
 		font-size: 1.4em;
 		color: white;
 	}
+
 	.log-in-panel h1 {
 		color: rgba(200, 200, 200, 1);
 		font-size: 24px;
@@ -205,9 +233,11 @@ form {
 		display: flex;
 		justify-content: center;
 	}
+
 	.fututes {
 		display: none;
 	}
+
 	.log-inBtn {
 		width: 8em;
 		height: 2em;
