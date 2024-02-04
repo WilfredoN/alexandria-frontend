@@ -1,41 +1,75 @@
 <div class="container">
-    <div class="container_inner">
-        <div class="log-in-panel">
-            <h1>Registration</h1>
-            <form class="form-input" [formGroup]="myForm" (ngSubmit)="_formSubmit()">
-                <input
-                    class="em--input"
-                    type="text"
-                    formControlName="full_name"
-                    placeholder="Full Name"
-                    required
-                />
-    
-                <input
-                    class="em--input"
-                    type="text"
-                    formControlName="login"
-                    placeholder="Login"
-                    required
-                />
-    
-                <input
-                    class="em--input"
-                    type="password"
-                    formControlName="pwd"
-                    placeholder="Choose password"
-                    required
-                />
-                <div class="example-button-row">
-                    <input type="submit" value="Register" class="log-inBtn"/>
-                </div>
-            </form>
-            <a routerLink="/log-in">Log in</a>
-            <div class="fututes">
-                <div class="line"><div class="pointer"></div></div>
-                <div class="line-back"></div>
-                <div class="line-2"></div>
-            </div>
-        </div>
-    </div>
+	<div class="container_inner">
+		<div class="log-in-panel">
+			<h1 style="user-select:none;">Registration</h1>
+			<mat-stepper #stepper>
+				<mat-step [stepControl]="firstFormGroup" errorMessage="Не все поля заполнены!">
+					<form [formGroup]="firstFormGroup">
+						<ng-template matStepLabel>Личная информация</ng-template>
+						<input class="em--input" formControlName="full_name" placeholder="Full Name" required />
+						<input class="em--input" formControlName="login" placeholder="Login" required />
+						<input class="em--input" type="password" formControlName="pwd" placeholder="Choose password"
+							required />
+						<div>
+							<button mat-button matStepperNext>Дальше</button>
+						</div>
+					</form>
+				</mat-step>
+
+				<mat-step [stepControl]="secondFormGroup" errorMessage="Выберите хотя бы одну группу">
+					<form [formGroup]="secondFormGroup" class="form_selections">
+						<ng-template matStepLabel>Ваши группы</ng-template>
+						<div class="grid-container">
+							<div class="groups-grid">
+
+								<div class="selection_checkbox" *ngFor="let group of groups; let i = index">
+									<input type="checkbox" class="found_checkbox" [formControlName]="i"
+										[id]="'group_' + group.id" style="display: none;" />
+									<label class="found_groups" [for]="'group_' + group.id">{{ group.name }}</label>
+								</div>
+
+							</div>
+							<div class="buttons">
+								<button mat-button matStepperPrevious>Назад</button>
+								<button mat-button matStepperNext>Дальше</button>
+							</div>
+						</div>
+					</form>
+				</mat-step>
+
+				<mat-step [stepControl]="thirdFormGroup" errorMessage="Выберите хотя бы один предмет">
+					<form [formGroup]="thirdFormGroup" class="form_selections">
+						<ng-template matStepLabel>Ваши предметы</ng-template>
+						<div class="grid-container">
+							<div class="subjects-grid">
+
+								<div *ngFor="let subject of subjects; let i = index" class="selection_checkbox">
+									<input type="checkbox" class="found_checkbox" [formControlName]="i"
+										[id]="'subject_' + subject.id" style="display: none;" />
+									<label class="found_subjects" [for]="'subject_' + subject.id">{{
+										subject.subject_name
+										}}</label>
+
+								</div>
+							</div>
+							<div class="buttons">
+								<button mat-button matStepperPrevious>Назад</button>
+								<button mat-button (click)="_formSubmit()">
+									Регистрация
+								</button>
+							</div>
+						</div>
+					</form>
+				</mat-step>
+			</mat-stepper>
+			<a routerLink="/log-in">Log in</a>
+			<div class="fututes">
+				<div class="line">
+					<div class="pointer"></div>
+				</div>
+				<div class="line-back"></div>
+				<div class="line-2"></div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -4,4 +4,6 @@ export interface TeacherDTO {
 	login: string;
 	password: string;
 	is_admin: boolean;
+	groups: any[];
+	subjects: any[];
 }

@@ -33,7 +33,7 @@ export class StudentsComponent {
 		private studentService: StudentService,
 		private authService: AuthService,
 		private snackBar: MatSnackBar,
-	) {}
+	) { }
 	ngOnInit(): void {
 		this.fetchStudents();
 		this.fetchGroups();
@@ -88,7 +88,6 @@ export class StudentsComponent {
 		console.log(student);
 		this.authService.registerStudent(student).subscribe({
 			next: (data: any) => {
-				console.log(data);
 				student.isEdited = false;
 			},
 			error: (error: any) => {

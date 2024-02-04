@@ -36,10 +36,37 @@ import { StudentsComponent } from './base/students/students.component';
 import { ConfirmDialogComponent } from './base/profile/confirm-dialog.component';
 import { NotFoundComponent } from './base/not-found/not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
+
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatToolbarModule,
+		MatIconModule,
+		MatCardModule,
+		MatMenuModule,
+		MatInputModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		MatButtonToggleModule,
+		MatListModule,
+		MatSnackBarModule,
+		MatSelectModule,
+		MatTableModule,
+		MatDialogModule,
+		MatButtonModule,
+		MatExpansionModule,
+		MatAutocompleteModule,
+		MatTooltipModule,
+		MatRadioModule,
+		MatStepperModule,
+	],
 	declarations: [
 		AppComponent,
 		HeaderComponent,
@@ -55,33 +82,9 @@ registerLocaleData(localeRu, 'ru');
 		StudentsComponent,
 		ConfirmDialogComponent,
 		NotFoundComponent,
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		MatToolbarModule,
-		MatIconModule,
-		MatCardModule,
-		MatMenuModule,
-		MatInputModule,
-		FormsModule,
-		ReactiveFormsModule,
-		HttpClientModule,
 		TasksComponent,
-		MatButtonToggleModule,
-		MatListModule,
-		MatSnackBarModule,
-		MatSelectModule,
-		MatTableModule,
-		MatDialogModule,
-		MatButtonModule,
-		MatExpansionModule,
-		MatAutocompleteModule,
-		MatTooltipModule,
-		MatRadioModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

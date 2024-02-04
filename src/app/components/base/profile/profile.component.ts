@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GroupService } from './group-service';
 import { Group } from './group.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService, LessonDTO } from '../../service/auth-service';
-import { switchMap } from 'rxjs';
+import { AuthService, SubjectDTO } from '../../service/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogChangePasswordComponent } from './dialog-change-password';
 import { ScheduleService } from '../../service/schedule-service';
@@ -32,9 +30,9 @@ export class ProfileComponent implements OnInit {
 		group_name: '',
 		password: '',
 	};
-	lesson: LessonDTO = {
+	lesson: SubjectDTO = {
 		id: 0,
-		lesson_name: '',
+		subject_name: '',
 	};
 	studentList: any;
 
@@ -42,28 +40,28 @@ export class ProfileComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private groupService: GroupService,
 		public dialog: MatDialog,
 		public authService: AuthService,
 		private snackBar: MatSnackBar,
 		private scheduleService: ScheduleService,
 		private teacherService: TeacherService,
-	) {}
+	) { }
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
 		this.initializeUser();
 	}
 
-	private initializeUser(): void {
+	async initializeUser(): Promise<void> {
 		this.user = JSON.parse(localStorage.getItem('user') as string);
-		console.log(this.user);
 		this.isStudent = this.user.role === 'student';
 		if (!this.isStudent) {
-			this.fetchGroups();
 			this.teacherService.getTeacherById(this.user.id).subscribe({
 				next: response => {
+					console.log(response);
 					this.user = response;
 					this.user.role = 'teacher';
+					this.isChecked = this.user.is_admin;
+					localStorage.setItem('user', JSON.stringify(this.user));
 				},
 				error: error => {
 					console.error('Ошибка при получении преподавателя', error);
@@ -79,19 +77,6 @@ export class ProfileComponent implements OnInit {
 				},
 			});
 		}
-		console.log(this.user);
-	}
-
-	private fetchGroups(): void {
-		this.groupService.getGroups().subscribe({
-			next: response => {
-				this.groups = response;
-				console.log('Список групп:', this.groups);
-			},
-			error: error => {
-				console.error('Ошибка при получении списка групп', error);
-			},
-		});
 	}
 	openChangePasswordDialog(): void {
 		const dialogRef = this.dialog.open(DialogChangePasswordComponent, {
@@ -186,32 +171,8 @@ export class ProfileComponent implements OnInit {
 		}
 	}
 
-	saveGroups() {
-		this.groupService
-			.assignGroupsToTeacher(
-				this.user.id,
-				this.groups
-					.filter(group => group.selected)
-					.map(group => group.id),
-			)
-			.subscribe({
-				next: response => {
-					console.log(response);
-				},
-				error: error => {
-					console.error('Ошибка при сохранении групп', error);
-					console.log(
-						'Список групп:',
-						this.groups
-							.filter(group => group.selected)
-							.map(group => group.id),
-					);
-				},
-			});
-	}
-
 	createLesson() {
-		this.scheduleService.createLesson(this.lesson.lesson_name).subscribe({
+		this.scheduleService.createLesson(this.lesson.subject_name).subscribe({
 			next: response => {
 				this.snackBar.open('Предмет создан', 'Закрыть', {
 					duration: 2000,

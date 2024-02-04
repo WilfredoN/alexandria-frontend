@@ -20,7 +20,7 @@ let ProfileComponent = class ProfileComponent {
         };
         this.lesson = {
             id: 0,
-            lesson_name: ''
+            subject_name: ''
         };
         this.isChecked = false;
     }
@@ -185,7 +185,7 @@ let ProfileComponent = class ProfileComponent {
         });
     }
     createLesson() {
-        this.scheduleService.createLesson(this.lesson.lesson_name).subscribe({
+        this.scheduleService.createLesson(this.lesson.subject_name).subscribe({
             next: (response) => {
                 this.snackBar.open('Предмет создан', 'Закрыть', {
                     duration: 2000,

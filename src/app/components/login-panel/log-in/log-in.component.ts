@@ -81,7 +81,7 @@ export class LogInComponent implements OnInit {
 					.then(r => console.log(r + '\nnavigate to /base'));
 			},
 			error: err => {
-				console.log(err);
+				console.error(err);
 				console.log(userDTO);
 				this._snackBar.open('Неверный логин или пароль', 'Закрыть', {
 					duration: 3000,

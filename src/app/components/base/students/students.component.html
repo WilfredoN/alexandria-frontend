@@ -2,12 +2,7 @@
 	<div class="search">
 		<h1>Список студентов</h1>
 		<div class="filter">
-			<button
-				id="add_student"
-				mat-raised-button
-				color="primary"
-				(click)="editMode()"
-			>
+			<button id="add_student" mat-raised-button color="primary" (click)="editMode()">
 				<mat-icon>add</mat-icon>Добавить студента
 			</button>
 			<button id="filter_icon" mat-button [matMenuTriggerFor]="menu">
@@ -16,18 +11,13 @@
 			<mat-menu #menu="matMenu">
 				<button mat-menu-item>
 					<mat-radio-group [(ngModel)]="selectedGroup">
-						<mat-radio-button value="all" (change)="fetchStudents()"
-							>Все</mat-radio-button
-						>
+						<mat-radio-button value="all" (change)="fetchStudents()">Все</mat-radio-button>
 					</mat-radio-group>
 				</button>
 				<button mat-menu-item *ngFor="let group of groups">
 					<mat-radio-group [(ngModel)]="selectedGroup">
-						<mat-radio-button
-							[value]="group"
-							(change)="fetchStudentsByGroup(group)"
-							>{{ group }}</mat-radio-button
-						>
+						<mat-radio-button [value]="group" (change)="fetchStudentsByGroup(group)">{{ group
+							}}</mat-radio-button>
 					</mat-radio-group>
 				</button>
 			</mat-menu>
@@ -49,32 +39,15 @@
 							{{ student.group_name }}
 						</p>
 						<p *ngIf="!student.isEdited">{{ student.login }}</p>
-						<input
-							*ngIf="student.isEdited"
-							type="text"
-							[(ngModel)]="student.full_name"
-						/>
-						<input
-							*ngIf="student.isEdited"
-							type="text"
-							[(ngModel)]="student.group_name"
-						/>
-						<mat-icon
-							id="submit"
-							*ngIf="student.isEdited"
-							class="pop-up_icon"
-							(click)="submitNewStudent(student)"
-							>check</mat-icon
-						>
-						<mat-icon
-							id="delete"
-							class="pop-up_icon"
-							[class.delete-icon-active]="
+						<input class="input_created" *ngIf="student.isEdited" type="text"
+							[(ngModel)]="student.full_name" />
+						<input class="input_created" *ngIf="student.isEdited" type="text"
+							[(ngModel)]="student.group_name" />
+						<mat-icon id="submit" *ngIf="student.isEdited" class="pop-up_icon"
+							(click)="submitNewStudent(student)">check</mat-icon>
+						<mat-icon id="delete" class="pop-up_icon" [class.delete-icon-active]="
 								this.selectedStudent === student.login
-							"
-							(click)="deleteStudent(student)"
-							>close</mat-icon
-						>
+							" (click)="deleteStudent(student)">close</mat-icon>
 					</div>
 				</div>
 			</div>

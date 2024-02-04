@@ -6,9 +6,9 @@ import { loginDTO } from './login-dto';
 import { StudentDTO } from './student-dto';
 import { ApiService } from './api-service';
 
-export interface LessonDTO {
+export interface SubjectDTO {
 	id: number;
-	lesson_name: string;
+	subject_name: string;
 }
 
 export interface GroupDTO {
@@ -20,7 +20,7 @@ export interface GroupDTO {
 	providedIn: 'root',
 })
 export class AuthService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) { }
 	private apiURL = ApiService.API_URL;
 
 	httpOptions = {
@@ -41,7 +41,24 @@ export class AuthService {
 			this.httpOptions,
 		);
 	}
-
+	assignGroupsToTeacher(
+		teacherId: number,
+		groupIds: number[],
+	): Observable<{ teacherId: number; groups: number[] }> {
+		return this.http.post<{ teacherId: number; groups: number[] }>(
+			`${this.apiURL}/groups/assign/${teacherId}`,
+			groupIds,
+		);
+	}
+	assignSubjectsToTeacher(
+		teacherId: number,
+		subjectIds: number[],
+	): Observable<{ teacherId: number; subjects: number[] }> {
+		return this.http.post<{ teacherId: number; subjects: number[] }>(
+			`${this.apiURL}/subjects/assign/${teacherId}`,
+			subjectIds,
+		);
+	}
 	registerStudent(user: any): Observable<Response> {
 		return this.http.post<Response>(
 			`${this.apiURL}/students/create`,
@@ -58,10 +75,19 @@ export class AuthService {
 		return this.http.get<TeacherDTO[]>(`${this.apiURL}/teachers`);
 	}
 
-	getLessons(): Observable<LessonDTO[]> {
-		return this.http.get<LessonDTO[]>(`${this.apiURL}/subjects`);
+	getLessons(): Observable<SubjectDTO[]> {
+		return this.http.get<SubjectDTO[]>(`${this.apiURL}/subjects`);
 	}
-
+	getTeacherSubjects(id: number): Observable<SubjectDTO[]> {
+		return this.http.get<SubjectDTO[]>(
+			`${this.apiURL}/teachers/${id}/subjects`,
+		);
+	}
+	getTeacherGroups(id: number): Observable<GroupDTO[]> {
+		return this.http.get<GroupDTO[]>(
+			`${this.apiURL}/teachers/${id}/groups`,
+		);
+	}
 	getGroups(): Observable<GroupDTO[]> {
 		return this.http.get<GroupDTO[]>(`${this.apiURL}/groups`);
 	}
@@ -131,7 +157,7 @@ export class AuthService {
 	}
 
 	update(user: loginDTO, newPassword: string) {
-		const endpoint = user.role === 'teacher' ? '/teachers' : '/students';
+		const endpoint = user.role === 'teacher' ? '/teachers/update' : '/students/update';
 		const url = `${this.apiURL}${endpoint}/${user.login}`;
 
 		const headers = {
@@ -147,10 +173,9 @@ export class AuthService {
 
 	switchToAdmin(user: any): Observable<any> {
 		console.log(user);
-		console.log(!user.is_admin);
 		return this.http.put<any>(
-			`${this.apiURL}/teachers/${user.login}`,
-			{ password: user.password, is_admin: !user.is_admin },
+			`${this.apiURL}/teachers/update/${user.login}`,
+			{ is_admin: !user.is_admin },
 			this.httpOptions,
 		);
 	}

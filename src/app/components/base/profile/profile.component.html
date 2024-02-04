@@ -42,33 +42,19 @@
 				</button>
 			</div>
 		</div>
-		<div class="groups_selector" *ngIf="!isStudent">
-			<h3>Выберите группы, у которых вы преподаете</h3>
-			<ul>
-				<li *ngFor="let group of groups">
-					<label>
-						<input type="checkbox" [(ngModel)]="group.selected" />
-						{{ group.name }}
-					</label>
-				</li>
-			</ul>
-			<button class="btn-def-style" (click)="saveGroups()">
-				Сохранить
-			</button>
-		</div>
 		<div class="lesson_creator" *ngIf="!isStudent">
 			<h3>Создать предмет</h3>
 			<form class="lessons_form" (ngSubmit)="createLesson()">
 				<table class="lessons_field">
 					<tr>
 						<td>
-							<label for="lesson_name">Название предмета</label>
+							<label for="subject_name">Название предмета</label>
 							<input
 								class="input-profile long-new"
 								type="text"
-								id="lesson_name"
-								name="lesson_name"
-								[(ngModel)]="lesson.lesson_name"
+								id="subject_name"
+								name="subject_name"
+								[(ngModel)]="lesson.subject_name"
 								required
 							/>
 						</td>
